@@ -15,17 +15,24 @@ public class CoffeeMachine {
     }
 
     public Coffee make(CoffeOrder order) {
-        grindCoffee(order.getSize());
+        validate(order);
+        grindCoffee(order);
         Coffee coffee = create(order);
         addMilk(order, coffee);
         return coffee;
+    }
+
+    private void validate(CoffeOrder order) {
+        CoffeeReceipe receipe = receipes.getReceipe(order.getType());
+        if (Objects.isNull(receipe)) {
+            throw new UnknownCofeeTypeException("no receipe for order " + order);
+        }
     }
 
     private void addMilk(CoffeOrder order, Coffee coffee) {
         if (isMilkCoffee(order.getType())) {
             int milkAmount = receipes.getReceipe(order.getType())
                                      .getMilkAmount();
-            milkProvider.heat();
             milkProvider.pour(milkAmount);
             coffee.setMilkAmout(milkAmount);
         }
@@ -36,19 +43,16 @@ public class CoffeeMachine {
                        .withMilk();
     }
 
-    private void grindCoffee(CoffeeSize coffeeSize) {
-        if (!grinder.grind(coffeeSize)) {
+    private void grindCoffee(CoffeOrder order) {
+        if (!grinder.grind(order.getSize())) {
             throw new NoCoffeeBeansException();
         }
     }
 
     private Coffee create(CoffeOrder order) {
-        Coffee coffee = new Coffee();
         CoffeeReceipe receipe = receipes.getReceipe(order.getType());
-        if (Objects.isNull(receipe)) {
-            throw new IllegalArgumentException("no receipe for order " + order);
-        }
         Integer waterAmount = receipe.getWaterAmount(order.getSize());
+        Coffee coffee = new Coffee();
         coffee.setWaterAmount(waterAmount);
         return coffee;
     }
