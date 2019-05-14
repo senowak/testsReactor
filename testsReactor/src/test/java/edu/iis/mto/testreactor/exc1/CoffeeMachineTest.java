@@ -23,6 +23,7 @@ public class CoffeeMachineTest {
 
     private CoffeeMachine coffeeMachine;
     private CoffeeSize small = CoffeeSize.SMALL;
+    private CoffeeSize standard = CoffeeSize.STANDARD;
     private CoffeType capuccino = CoffeType.CAPUCCINO;
     private int milkAmount = 2;
     private int waterAmount = 5;
@@ -138,6 +139,19 @@ public class CoffeeMachineTest {
 
         Coffee coffee = coffeeMachine.make(coffeOrder);
         verify(grinder, times(1)).grind(small);
+    }
+
+    @Test public void GrinderInterfaceMethodGrindShouldBeNeverCallWithCoffeeTypeStandard() {
+
+        CoffeOrder.Builder coffeOrderBuilder = new CoffeOrder.Builder();
+        coffeOrderBuilder.withSize(small);
+        coffeOrderBuilder.withType(capuccino);
+
+        coffeOrder = coffeOrderBuilder.build();
+        when(coffeeReceipes.getReceipe(any())).thenReturn(coffeeReceipe);
+
+        Coffee coffee = coffeeMachine.make(coffeOrder);
+        verify(grinder, times(0)).grind(standard);
     }
 
 }
