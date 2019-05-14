@@ -25,6 +25,7 @@ public class CoffeeMachineTest {
     private CoffeeSize small = CoffeeSize.SMALL;
     private CoffeeSize standard = CoffeeSize.STANDARD;
     private CoffeType capuccino = CoffeType.CAPUCCINO;
+    private CoffeType espresso = CoffeType.ESPRESSO;
     private int milkAmount = 2;
     private int waterAmount = 5;
 
@@ -165,5 +166,18 @@ public class CoffeeMachineTest {
 
         Coffee coffee = coffeeMachine.make(coffeOrder);
         verify(coffeeReceipes, times(3)).getReceipe(capuccino);
+    }
+
+    @Test public void CoffeeReceipesInterfaceGetReceipeShouldBeCalledZeroTimesWithCoffeeTypeEspresso() {
+
+        CoffeOrder.Builder coffeOrderBuilder = new CoffeOrder.Builder();
+        coffeOrderBuilder.withSize(small);
+        coffeOrderBuilder.withType(capuccino);
+
+        coffeOrder = coffeOrderBuilder.build();
+        when(coffeeReceipes.getReceipe(any())).thenReturn(coffeeReceipe);
+
+        Coffee coffee = coffeeMachine.make(coffeOrder);
+        verify(coffeeReceipes, times(0)).getReceipe(espresso);
     }
 }
