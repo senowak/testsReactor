@@ -41,4 +41,15 @@ public class CoffeeMachineTest {
         Coffee result = coffeeMachine.make(coffeOrder);
         assertThat(result.getMilkAmout(), is(100));
     }
+
+    @Test public void testCoffeMachineMakeWaterAmount() {
+        CoffeeReceipe coffeeReceipe = CoffeeReceipe.builder().withMilkAmount(100).withWaterAmounts(map).build();
+        when(coffeeReceipes.getReceipe(CoffeType.ESPRESSO)).thenReturn(coffeeReceipe);
+        when(grinder.grind(CoffeeSize.STANDARD)).thenReturn(true);
+        CoffeOrder coffeOrder = CoffeOrder.builder().withType(CoffeType.ESPRESSO).withSize(CoffeeSize.STANDARD).build();
+        CoffeeMachine coffeeMachine = new CoffeeMachine(grinder, milkProvider, coffeeReceipes);
+        Coffee result = coffeeMachine.make(coffeOrder);
+        assertThat(result.getWaterAmount(), is(100));
+    }
+
 }
