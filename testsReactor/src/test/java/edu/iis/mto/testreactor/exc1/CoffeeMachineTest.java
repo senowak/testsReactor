@@ -89,4 +89,13 @@ import java.util.HashMap;
 
     }
 
+    @Test
+    public void methodMakeShouldCallMethodPourWhenCoffeeIsWithMilk(){
+
+        coffeeMachine.make(coffeOrder);
+
+        verify(milkProvider, times(1)).pour(any(Integer.class));
+
+    }
+
 }
