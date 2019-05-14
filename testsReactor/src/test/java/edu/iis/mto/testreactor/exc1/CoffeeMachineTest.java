@@ -90,11 +90,12 @@ public class CoffeeMachineTest {
     }
 
     @Test
-    public void milkProviderShouldBeCalledAtLeastOnce(){
+    public void milkProviderMethodsShouldBeCalledAtLeastOnce(){
         when(grinder.grind(CoffeeSize.STANDARD)).thenReturn(true);
         when(coffeeReceipes.getReceipe(CoffeType.ESPRESSO)).thenReturn(coffeeReceipe);
         coffeeMachine.make(coffeOrder);
         verify(milkProvider, atLeastOnce()).pour(returnNotImportantMilkAmount());
+        verify(milkProvider, atLeastOnce()).heat();
     }
-
+    
 }
