@@ -36,6 +36,18 @@ public class CoffeeMachineTest {
         coffeeMachine.make(coffeOrder);
     }
 
+    @Test(expected = NoCoffeeBeansException.class)
+    public void grinderShouldThrowNoCoffeeBeansExceptionTest(){
+        CoffeOrder coffeOrder = CoffeOrder.builder().withSize(CoffeeSize.SMALL).withType(CoffeType.ESPRESSO).build();
+        Map<CoffeeSize, Integer> waterAmount = new HashMap<>();
+        waterAmount.put(CoffeeSize.SMALL, 5);
+        CoffeeReceipe coffeeReceipe = CoffeeReceipe.builder().withWaterAmounts(waterAmount).withMilkAmount(5).build();
+        when(coffeeReceipes.getReceipe(any(CoffeType.class))).thenReturn(coffeeReceipe);
+        when(grinder.grind(CoffeeSize.SMALL)).thenReturn(false);
+        coffeeMachine = new CoffeeMachine(grinder, milkProvider, coffeeReceipes);
+        coffeeMachine.make(coffeOrder);
+    }
+
     @Test
     public void itCompiles() {
         assertThat(true, equalTo(true));
