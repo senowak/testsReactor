@@ -101,6 +101,12 @@ public class CoffeeMachineTest {
         }
     }
 
+    @Test
+    public void coffeeWithoutMilkInReceiptShouldHaveNoMilk() {
+        Coffee coffee = machine.make(createOrderAndSetDefaultMockConfiguration(0, CoffeeSize.SMALL, CoffeType.CAPUCCINO));
+        Assert.assertThat(coffee.getMilkAmout(), is(0));
+    }
+
     private CoffeOrder createOrderAndSetDefaultMockConfiguration(int milkAmount, CoffeeSize coffeeSize, CoffeType coffeType) {
         when(grinder.grind(coffeeSize)).thenReturn(true);
         CoffeeReceipe receipe = CoffeeReceipe.builder()
