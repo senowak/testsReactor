@@ -5,7 +5,7 @@ import static org.hamcrest.Matchers.is;
 import static org.junit.Assert.assertThat;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
-
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -52,4 +52,12 @@ public class CoffeeMachineTest {
         assertThat(result.getWaterAmount(), is(100));
     }
 
+    @Test public void testCoffeMachineMakeWrongCoffeeType() {
+        CoffeeReceipe coffeeReceipe = CoffeeReceipe.builder().withMilkAmount(100).withWaterAmounts(map).build();
+        when(coffeeReceipes.getReceipe(CoffeType.ESPRESSO)).thenReturn(coffeeReceipe);
+        when(grinder.grind(CoffeeSize.STANDARD)).thenReturn(true);
+        CoffeOrder coffeOrder = CoffeOrder.builder().withType(CoffeType.CAPUCCINO).withSize(CoffeeSize.STANDARD).build();
+        CoffeeMachine coffeeMachine = new CoffeeMachine(grinder, milkProvider, coffeeReceipes);
+        assertThrows(UnknownCofeeTypeException.class, () -> coffeeMachine.make(coffeOrder));
+    }
 }
