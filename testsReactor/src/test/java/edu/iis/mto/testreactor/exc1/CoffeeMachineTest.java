@@ -6,6 +6,7 @@ import static org.junit.Assert.assertThat;
 
 import org.junit.Before;
 import org.junit.Test;
+import org.mockito.Mockito;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -38,7 +39,7 @@ public class CoffeeMachineTest {
     }
 
     @Test(expected = NoCoffeeBeansException.class)
-    public void grinderShouldThrowNoCoffeeBeansExceptionTest(){
+    public void grindCoffeeShouldThrowNoCoffeeBeansExceptionTest(){
         CoffeOrder coffeOrder = CoffeOrder.builder().withSize(CoffeeSize.SMALL).withType(CoffeType.ESPRESSO).build();
         Map<CoffeeSize, Integer> waterAmount = new HashMap<>();
         waterAmount.put(CoffeeSize.SMALL, 5);
@@ -66,6 +67,21 @@ public class CoffeeMachineTest {
 
         assertThat(coffee.getMilkAmout(), is(equalTo(coffeeMadeByMachine.getMilkAmout())));
         assertThat(coffee.getWaterAmount(), is(equalTo(coffeeMadeByMachine.getWaterAmount())));
+    }
+
+
+    @Test
+    public void grinderShouldGrindCoffeeBeansOnceTest(){
+        CoffeOrder coffeOrder = CoffeOrder.builder().withSize(CoffeeSize.SMALL).withType(CoffeType.ESPRESSO).build();
+        Map<CoffeeSize, Integer> waterAmount = new HashMap<>();
+        waterAmount.put(CoffeeSize.SMALL, 5);
+        CoffeeReceipe coffeeReceipe = CoffeeReceipe.builder().withWaterAmounts(waterAmount).withMilkAmount(5).build();
+        when(coffeeReceipes.getReceipe(any(CoffeType.class))).thenReturn(coffeeReceipe);
+        when(grinder.grind(CoffeeSize.SMALL)).thenReturn(true);
+        coffeeMachine = new CoffeeMachine(grinder, milkProvider, coffeeReceipes);
+        coffeeMachine.make(coffeOrder);
+
+        verify(grinder, times(1)).grind(Mockito.any());
     }
 
     @Test
