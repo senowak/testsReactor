@@ -57,9 +57,9 @@ public class CoffeeMachineTest {
     public void coffeeMachineShouldUseGrinderAndMilkProviderAndCoffeeReceipes() {
         machine.make(createOrderAndSetDefaultMockConfiguration(1, CoffeeSize.STANDARD, CoffeType.CAPUCCINO));
 
-        verify(grinder).grind(CoffeeSize.STANDARD);
+        verify(grinder, atLeastOnce()).grind(CoffeeSize.STANDARD);
         verify(receipes, atLeastOnce()).getReceipe(CoffeType.CAPUCCINO);
-        verify(milkProvider).pour(1);
+        verify(milkProvider, atLeastOnce()).pour(1);
     }
 
     @Test(expected = UnknownCofeeTypeException.class)
