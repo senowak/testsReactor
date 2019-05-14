@@ -62,6 +62,20 @@ public class CoffeeMachineTest {
         verify(milkProvider).pour(1);
     }
 
+    @Test(expected = UnknownCofeeTypeException.class)
+    public void orderWithoutReceipeShouldThrowException() {
+        CoffeOrder order = createOrderAndSetDefaultMockConfiguration(1, CoffeeSize.STANDARD, CoffeType.CAPUCCINO);
+        when(receipes.getReceipe(CoffeType.CAPUCCINO)).thenReturn(null);
+        machine.make(order);
+    }
+
+    @Test(expected = NoCoffeeBeansException.class)
+    public void coffeePreparationShouldFailWhenGrindingFails() {
+        CoffeOrder order = createOrderAndSetDefaultMockConfiguration(1, CoffeeSize.STANDARD, CoffeType.CAPUCCINO);
+        when(grinder.grind(CoffeeSize.STANDARD)).thenReturn(false);
+        machine.make(order);
+    }
+
     private CoffeOrder createOrderAndSetDefaultMockConfiguration(int milkAmount, CoffeeSize coffeeSize, CoffeType coffeType) {
         when(grinder.grind(coffeeSize)).thenReturn(true);
         CoffeeReceipe receipe = CoffeeReceipe.builder()
