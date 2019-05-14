@@ -127,4 +127,17 @@ public class CoffeeMachineTest {
         verify(milkProvider, times(1)).heat();
     }
 
+    @Test public void GrinderInterfaceMethodGrindShouldBeCallOneTimeWithCoffeeTypeSmall() {
+
+        CoffeOrder.Builder coffeOrderBuilder = new CoffeOrder.Builder();
+        coffeOrderBuilder.withSize(small);
+        coffeOrderBuilder.withType(capuccino);
+
+        coffeOrder = coffeOrderBuilder.build();
+        when(coffeeReceipes.getReceipe(any())).thenReturn(coffeeReceipe);
+
+        Coffee coffee = coffeeMachine.make(coffeOrder);
+        verify(grinder, times(1)).grind(small);
+    }
+
 }
