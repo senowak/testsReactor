@@ -65,5 +65,15 @@ import java.util.Map;
         Assert.assertEquals(coffeOrderTest.getSize(), CoffeeSize.STANDARD);
     }
 
+    @Test(expected = NoCoffeeBeansException.class) public void whenTheCoffeeSizeIsDifferentThrowNoCoffeeBeansException() {
+        Map<CoffeeSize, Integer> coffeeMap = new HashMap<>();
+        coffeeMap.put(CoffeeSize.SMALL, 30);
+        coffeeReceipe = CoffeeReceipe.builder().withMilkAmount(20).withWaterAmounts(coffeeMap).build();
+        when(grinder.grind(CoffeeSize.STANDARD)).thenReturn(true);
+        when(coffeeReceipes.getReceipe(CoffeType.ESPRESSO)).thenReturn(coffeeReceipe);
+        Coffee coffee = coffeeMachine.make(coffeOrder);
+        System.out.println(coffee.getMilkAmout());
+        System.out.println(coffee.getWaterAmount());
+    }
 }
 
