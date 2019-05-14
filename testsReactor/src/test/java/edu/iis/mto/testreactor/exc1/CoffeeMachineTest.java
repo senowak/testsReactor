@@ -31,11 +31,11 @@ import java.util.HashMap;
     public void init(){
 
         HashMap waterAmounts = new HashMap();
-        waterAmounts.put(CoffeeSize.STANDARD, 10);
+        waterAmounts.put(CoffeeSize.STANDARD, getWaterAmount());
 
         CoffeeReceipe.Builder coffeeWithMilkReeceipeBuilder = CoffeeReceipe.builder()
                                                                   .withWaterAmounts(waterAmounts)
-                                                                  .withMilkAmount(5);
+                                                                  .withMilkAmount(getMilkAmount());
 
         CoffeeReceipe.Builder coffeWithoutMilkReeceipeBuilder = CoffeeReceipe.builder()
                                                                   .withWaterAmounts(waterAmounts)
@@ -66,7 +66,7 @@ import java.util.HashMap;
 
         Coffee coffee = coffeeMachine.make(coffeOrder);
 
-        assertThat(coffee.getWaterAmount(), Is.is(10));
+        assertThat(coffee.getWaterAmount(), Is.is(getWaterAmount()));
 
     }
 
@@ -77,7 +77,7 @@ import java.util.HashMap;
 
         Coffee coffee = coffeeMachine.make(coffeOrder);
 
-        assertThat(coffee.getMilkAmout(), Is.is(5));
+        assertThat(coffee.getMilkAmout(), Is.is(getMilkAmount()));
 
     }
 
@@ -144,8 +144,16 @@ import java.util.HashMap;
         ArgumentCaptor<Integer> argument = ArgumentCaptor.forClass(Integer.class);
         verify(milkProvider).pour(argument.capture());
 
-        assertThat(argument.getValue(), Is.is(5));
+        assertThat(argument.getValue(), Is.is(getMilkAmount()));
 
+    }
+
+    private int getWaterAmount(){
+        return 10;
+    }
+
+    private int getMilkAmount(){
+        return 5;
     }
 
 }
