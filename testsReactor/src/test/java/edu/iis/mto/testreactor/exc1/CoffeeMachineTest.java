@@ -28,7 +28,7 @@ public class CoffeeMachineTest {
     private CoffeOrder coffeeOrder;
 
     @Before
-    public void init(){
+    public void init() {
         coffee = new Coffee();
         grinder = mock(Grinder.class);
         milkProvider = mock(MilkProvider.class);
@@ -40,23 +40,22 @@ public class CoffeeMachineTest {
     }
 
     @Test(expected = UnknownCofeeTypeException.class)
-    public void validateShouldThrowUnknownCoffeeTypeExceptionTest(){
+    public void validateShouldThrowUnknownCoffeeTypeExceptionTest() {
         when(coffeeReceipes.getReceipe(any(CoffeType.class))).thenReturn(null);
         coffeeMachine = new CoffeeMachine(grinder, milkProvider, coffeeReceipes);
         coffeeMachine.make(coffeeOrder);
     }
 
     @Test(expected = NoCoffeeBeansException.class)
-    public void grindCoffeeShouldThrowNoCoffeeBeansExceptionTest(){
+    public void grindCoffeeShouldThrowNoCoffeeBeansExceptionTest() {
         when(coffeeReceipes.getReceipe(any(CoffeType.class))).thenReturn(coffeeReceipe);
         when(grinder.grind(CoffeeSize.SMALL)).thenReturn(false);
         coffeeMachine = new CoffeeMachine(grinder, milkProvider, coffeeReceipes);
         coffeeMachine.make(coffeeOrder);
     }
 
-
     @Test
-    public void testIfMadeCoffeeHasProperAmountOfWaterAndMilkTest(){
+    public void testIfMadeCoffeeHasProperAmountOfWaterAndMilkTest() {
         when(coffeeReceipes.getReceipe(any(CoffeType.class))).thenReturn(coffeeReceipe);
         when(grinder.grind(CoffeeSize.SMALL)).thenReturn(true);
 
@@ -70,9 +69,8 @@ public class CoffeeMachineTest {
         assertThat(coffee.getWaterAmount(), is(equalTo(coffeeMadeByMachine.getWaterAmount())));
     }
 
-
     @Test
-    public void grinderShouldGrindCoffeeBeansOnceTest(){
+    public void grinderShouldGrindCoffeeBeansOnceTest() {
         when(coffeeReceipes.getReceipe(any(CoffeType.class))).thenReturn(coffeeReceipe);
         when(grinder.grind(CoffeeSize.SMALL)).thenReturn(true);
         coffeeMachine = new CoffeeMachine(grinder, milkProvider, coffeeReceipes);
@@ -82,7 +80,7 @@ public class CoffeeMachineTest {
     }
 
     @Test
-    public void milkProviderShouldPourMilkOnceTest(){
+    public void milkProviderShouldPourMilkOnceTest() {
         when(coffeeReceipes.getReceipe(any(CoffeType.class))).thenReturn(coffeeReceipe);
         when(grinder.grind(CoffeeSize.SMALL)).thenReturn(true);
 
@@ -93,7 +91,7 @@ public class CoffeeMachineTest {
     }
 
     @Test
-    public void milkProviderShouldNotPourMilkWhenCoffeeNotContainItTest(){
+    public void milkProviderShouldNotPourMilkWhenCoffeeNotContainItTest() {
 
         int milkAmount = 0;
 
@@ -105,6 +103,22 @@ public class CoffeeMachineTest {
         coffeeMachine.make(coffeeOrder);
 
         verify(milkProvider, times(0)).pour(milkAmount);
+    }
+
+    @Test
+    public void testIfCoffeeDoNotContainMilkTest() {
+        CoffeeReceipe coffeeReceipe = CoffeeReceipe.builder().withWaterAmounts(waterAmount).withMilkAmount(0).build();
+        when(coffeeReceipes.getReceipe(any(CoffeType.class))).thenReturn(coffeeReceipe);
+        when(grinder.grind(CoffeeSize.SMALL)).thenReturn(true);
+
+        coffeeMachine = new CoffeeMachine(grinder, milkProvider, coffeeReceipes);
+        coffee.setMilkAmout(0);
+        coffee.setWaterAmount(WATER_AMOUNT);
+
+        Coffee coffeeMadeByMachine = coffeeMachine.make(coffeeOrder);
+
+        assertThat(coffee.getMilkAmout(), is(equalTo(coffeeMadeByMachine.getMilkAmout())));
+        assertThat(coffee.getWaterAmount(), is(equalTo(coffeeMadeByMachine.getWaterAmount())));
     }
 
     @Test
