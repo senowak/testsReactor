@@ -154,4 +154,16 @@ public class CoffeeMachineTest {
         verify(grinder, times(0)).grind(standard);
     }
 
+    @Test public void CoffeeReceipesInterfaceGetReceipeShouldBeCalledThreeTimesWithCoffeeTypeCapuccino() {
+
+        CoffeOrder.Builder coffeOrderBuilder = new CoffeOrder.Builder();
+        coffeOrderBuilder.withSize(small);
+        coffeOrderBuilder.withType(capuccino);
+
+        coffeOrder = coffeOrderBuilder.build();
+        when(coffeeReceipes.getReceipe(any())).thenReturn(coffeeReceipe);
+
+        Coffee coffee = coffeeMachine.make(coffeOrder);
+        verify(coffeeReceipes, times(3)).getReceipe(capuccino);
+    }
 }
