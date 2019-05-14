@@ -60,4 +60,13 @@ import java.util.HashMap;
 
     }
 
+    @Test
+    public void milkAmount(){
+
+        Coffee coffee = coffeeMachine.make(coffeOrder);
+
+        assertThat(coffee.getMilkAmout(), Is.is(5));
+
+    }
+
 }
