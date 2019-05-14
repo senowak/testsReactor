@@ -91,6 +91,16 @@ public class CoffeeMachineTest {
         Assert.assertThat(doubleCoffee.getWaterAmount(), is(4));
     }
 
+    @Test
+    public void milkProviderShouldAddCorrectAmountOfMilkToCoffeeOfAllTypes() {
+        int wantedMilkAmount = 2;
+
+        for (CoffeType type: CoffeType.values()) {
+            Coffee coffee = machine.make(createOrderAndSetDefaultMockConfiguration(wantedMilkAmount, CoffeeSize.SMALL, type));
+            Assert.assertThat(coffee.getMilkAmout(), is(wantedMilkAmount));
+        }
+    }
+
     private CoffeOrder createOrderAndSetDefaultMockConfiguration(int milkAmount, CoffeeSize coffeeSize, CoffeType coffeType) {
         when(grinder.grind(coffeeSize)).thenReturn(true);
         CoffeeReceipe receipe = CoffeeReceipe.builder()
