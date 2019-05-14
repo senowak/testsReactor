@@ -41,31 +41,6 @@ import java.util.Map;
         coffeeMachine.make(coffeOrder);
     }
 
-    @Test public void shouldReturnCoffeeWithTheSameAmountOfWaterAsInCoffeeReceipt() {
-        coffeeReceipe = CoffeeReceipe.builder().withMilkAmount(15).withWaterAmounts(coffeeMap).build();
-        when(grinder.grind(CoffeeSize.SMALL)).thenReturn(true);
-        when(coffeeReceipes.getReceipe(CoffeType.ESPRESSO)).thenReturn(coffeeReceipe);
-        Coffee coffee = coffeeMachine.make(coffeOrder);
-        assertThat(coffeeReceipe.getWaterAmount(CoffeeSize.SMALL), is(coffee.getWaterAmount()));
-    }
-
-    @Test public void methodGrindShouldNeverCalled() {
-        when(grinder.grind(CoffeeSize.SMALL)).thenReturn(false);
-        verify(grinder, times(0)).grind(CoffeeSize.SMALL);
-    }
-
-    @Test(expected = IllegalArgumentException.class) public void shouldThrowIllegalArgumentExceptionWhenThereIsNoReceiptForOrder() {
-        when(grinder.grind(CoffeeSize.SMALL)).thenReturn(true);
-        when(coffeeReceipes.getReceipe(CoffeType.ESPRESSO)).thenReturn(null);
-        coffeeMachine.make(coffeOrder);
-    }
-
-    @Test public void methodWithTypeShouldReturnCorrectTypeAndSize() {
-        CoffeOrder coffeOrderTest = CoffeOrder.builder().withSize(CoffeeSize.STANDARD).withType(CoffeType.CAPUCCINO).build();
-        Assert.assertEquals(coffeOrderTest.getType(), CoffeType.CAPUCCINO);
-        Assert.assertEquals(coffeOrderTest.getSize(), CoffeeSize.STANDARD);
-    }
-
     @Test(expected = NoCoffeeBeansException.class) public void whenTheCoffeeSizeIsDifferentThrowNoCoffeeBeansException() {
         coffeeReceipe = CoffeeReceipe.builder().withMilkAmount(20).withWaterAmounts(coffeeMap).build();
         when(grinder.grind(CoffeeSize.STANDARD)).thenReturn(true);
@@ -74,5 +49,31 @@ import java.util.Map;
         System.out.println(coffee.getMilkAmout());
         System.out.println(coffee.getWaterAmount());
     }
+
+    @Test public void shouldReturnCoffeeWithTheSameAmountOfWaterAsInCoffeeReceipt() {
+        coffeeReceipe = CoffeeReceipe.builder().withMilkAmount(15).withWaterAmounts(coffeeMap).build();
+        when(grinder.grind(CoffeeSize.SMALL)).thenReturn(true);
+        when(coffeeReceipes.getReceipe(CoffeType.ESPRESSO)).thenReturn(coffeeReceipe);
+        Coffee coffee = coffeeMachine.make(coffeOrder);
+        assertThat(coffeeReceipe.getWaterAmount(CoffeeSize.SMALL), is(coffee.getWaterAmount()));
+    }
+
+    @Test(expected = IllegalArgumentException.class) public void shouldThrowIllegalArgumentExceptionWhenThereIsNoReceiptForOrder() {
+        when(grinder.grind(CoffeeSize.SMALL)).thenReturn(true);
+        when(coffeeReceipes.getReceipe(CoffeType.ESPRESSO)).thenReturn(null);
+        coffeeMachine.make(coffeOrder);
+    }
+
+    @Test public void methodGrindShouldNeverCalled() {
+        when(grinder.grind(CoffeeSize.SMALL)).thenReturn(false);
+        verify(grinder, times(0)).grind(CoffeeSize.SMALL);
+    }
+
+    @Test public void methodWithTypeShouldReturnCorrectTypeAndSize() {
+        CoffeOrder coffeOrderTest = CoffeOrder.builder().withSize(CoffeeSize.STANDARD).withType(CoffeType.CAPUCCINO).build();
+        Assert.assertEquals(coffeOrderTest.getType(), CoffeType.CAPUCCINO);
+        Assert.assertEquals(coffeOrderTest.getSize(), CoffeeSize.STANDARD);
+    }
+
 }
 
