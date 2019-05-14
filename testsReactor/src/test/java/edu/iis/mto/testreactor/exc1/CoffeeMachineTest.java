@@ -5,6 +5,8 @@ import static org.junit.Assert.assertThat;
 import static org.mockito.Matchers.any;
 import static org.mockito.Mockito.when;
 
+import org.hamcrest.Matchers;
+import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -18,6 +20,10 @@ import java.util.Map;
 public class CoffeeMachineTest {
 
     private CoffeeMachine coffeeMachine;
+    private CoffeeSize small = CoffeeSize.SMALL;
+    private CoffeType capuccino = CoffeType.CAPUCCINO;
+    private int milkAmount = 2;
+    private int waterAmount = 5;
 
     @Mock
     private Coffee coffee;
@@ -32,19 +38,16 @@ public class CoffeeMachineTest {
     @Mock
     private CoffeeReceipe coffeeReceipe;
 
-    private CoffeeSize small = CoffeeSize.SMALL;
-    private CoffeType capuccino = CoffeType.CAPUCCINO;
-
     @Before
     public void initialize() {
         coffeeMachine = new CoffeeMachine(grinder, milkProvider, coffeeReceipes);
         when(grinder.grind(any())).thenReturn(true);
 
         HashMap hm = new HashMap();
-        hm.put(small, 5);
+        hm.put(small, waterAmount);
 
         CoffeeReceipe.Builder coffeeReceipeBuilder = new CoffeeReceipe.Builder();
-        coffeeReceipeBuilder.withMilkAmount(2);
+        coffeeReceipeBuilder.withMilkAmount(milkAmount);
         coffeeReceipeBuilder.withWaterAmounts(hm);
         coffeeReceipe = coffeeReceipeBuilder.build();
 
@@ -65,5 +68,19 @@ public class CoffeeMachineTest {
         when(coffeeReceipes.getReceipe(any())).thenReturn(coffeeReceipe);
 
         Coffee coffee = coffeeMachine.make(coffeOrder);
+    }
+
+
+    @Test public void makeReturnCoffeeThatMilkAmountEqualsTo2() {
+
+        CoffeOrder.Builder coffeOrderBuilder = new CoffeOrder.Builder();
+        coffeOrderBuilder.withSize(small);
+        coffeOrderBuilder.withType(capuccino);
+
+        coffeOrder = coffeOrderBuilder.build();
+        when(coffeeReceipes.getReceipe(any())).thenReturn(coffeeReceipe);
+
+        Coffee coffee = coffeeMachine.make(coffeOrder);
+        Assert.assertThat(coffee.getMilkAmout(), Matchers.equalTo(milkAmount));
     }
 }
