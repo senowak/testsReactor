@@ -4,14 +4,14 @@ package edu.iis.mto.testreactor.exc1;
 import static org.hamcrest.core.IsEqual.equalTo;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertThat;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.*;
 
 import org.junit.Assert;
 import org.junit.Before;
 import org.mockito.Mockito;
 
 import org.junit.Test;
+import org.mockito.verification.VerificationMode;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -59,7 +59,6 @@ public class CoffeeMachineTest {
         CoffeOrder.Builder builder1 = new CoffeOrder.Builder();
         builder1.withType(CoffeType.CAPUCCINO);
         builder1.withSize(CoffeeSize.SMALL);
-        //coffeOrder.builder().withType();
         coffeOrder = builder1.build();
     }
 
@@ -69,6 +68,17 @@ public class CoffeeMachineTest {
         coffee= coffeeMachine.make(coffeOrder);
         assertEquals(2,coffee.getMilkAmout());
         assertEquals(1,coffee.getWaterAmount());
+    }
+
+
+    @Test(expected = edu.iis.mto.testreactor.exc1.NoCoffeeBeansException.class)
+    public void when_coffe_is_too_large_then_make_should_throw_error(){
+        CoffeOrder.Builder builder1 = new CoffeOrder.Builder();
+        builder1.withType(CoffeType.CAPUCCINO);
+        builder1.withSize(CoffeeSize.STANDARD);
+        coffeOrder = builder1.build();
+        coffeeMachine.make(coffeOrder);
+
     }
 
 }
