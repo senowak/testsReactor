@@ -20,6 +20,8 @@ import java.util.HashMap;
 
     private CoffeeMachine coffeeMachine;
     private CoffeOrder coffeOrder;
+    private CoffeeReceipe coffeeWithMilkReceipe;
+    private CoffeeReceipe coffeeWithoutMilkReceipe;
     @Mock Grinder grinder;
     @Mock MilkProvider milkProvider;
     @Mock CoffeeReceipes coffeeReceipes;
@@ -30,19 +32,24 @@ import java.util.HashMap;
         HashMap waterAmounts = new HashMap();
         waterAmounts.put(CoffeeSize.STANDARD, 10);
 
-        CoffeeReceipe.Builder coffeReeceipeBuilder = CoffeeReceipe.builder()
+        CoffeeReceipe.Builder coffeeWithMilkReeceipeBuilder = CoffeeReceipe.builder()
                                                                   .withWaterAmounts(waterAmounts)
                                                                   .withMilkAmount(5);
+
+        CoffeeReceipe.Builder coffeWithoutMilkReeceipeBuilder = CoffeeReceipe.builder()
+                                                                  .withWaterAmounts(waterAmounts)
+                                                                  .withMilkAmount(0);
 
         CoffeOrder.Builder coffeOrderBuilder = CoffeOrder.builder()
                                                          .withSize(CoffeeSize.STANDARD)
                                                          .withType(CoffeType.ESPRESSO);
 
         coffeOrder = coffeOrderBuilder.build();
-        CoffeeReceipe coffeeReceipe = coffeReeceipeBuilder.build();
+        coffeeWithMilkReceipe = coffeeWithMilkReeceipeBuilder.build();
+        coffeeWithoutMilkReceipe = coffeWithoutMilkReeceipeBuilder.build();
 
         when(grinder.grind(any(CoffeeSize.class))).thenReturn(true);
-        when(coffeeReceipes.getReceipe(any(CoffeType.class))).thenReturn(coffeeReceipe);
+        when(coffeeReceipes.getReceipe(any(CoffeType.class))).thenReturn(coffeeWithoutMilkReceipe);
 
         coffeeMachine = new CoffeeMachine(grinder, milkProvider, coffeeReceipes);
 
@@ -65,6 +72,8 @@ import java.util.HashMap;
     @Test
     public void methodMakeShouldReturnCoffeeWithCorrectMilkAmount(){
 
+        when(coffeeReceipes.getReceipe(any(CoffeType.class))).thenReturn(coffeeWithMilkReceipe);
+
         Coffee coffee = coffeeMachine.make(coffeOrder);
 
         assertThat(coffee.getMilkAmout(), Is.is(5));
@@ -83,6 +92,8 @@ import java.util.HashMap;
     @Test
     public void methodMakeShouldCallMethodHeatWhenCoffeeIsWithMilk(){
 
+        when(coffeeReceipes.getReceipe(any(CoffeType.class))).thenReturn(coffeeWithMilkReceipe);
+
         coffeeMachine.make(coffeOrder);
 
         verify(milkProvider, times(1)).heat();
@@ -92,9 +103,22 @@ import java.util.HashMap;
     @Test
     public void methodMakeShouldCallMethodPourWhenCoffeeIsWithMilk(){
 
+        when(coffeeReceipes.getReceipe(any(CoffeType.class))).thenReturn(coffeeWithMilkReceipe);
+
         coffeeMachine.make(coffeOrder);
 
         verify(milkProvider, times(1)).pour(any(Integer.class));
+
+    }
+
+    @Test
+    public void methodMakeShouldNotCallMethodHeatWhenCoffeeIsNotWithMilk(){
+
+        when(coffeeReceipes.getReceipe(any(CoffeType.class))).thenReturn(coffeeWithoutMilkReceipe);
+
+        coffeeMachine.make(coffeOrder);
+
+        verify(milkProvider, times(0)).heat();
 
     }
 
