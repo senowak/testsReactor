@@ -15,12 +15,17 @@ import static org.mockito.Mockito.*;
 
 public class CoffeeMachineTest {
 
-    private Coffee coffee;
+    private final int WATER_AMOUNT = 5;
+    private final int MILK_AMOUNT = 5;
 
+    private Coffee coffee;
     private CoffeeMachine coffeeMachine;
     private CoffeeReceipes coffeeReceipes;
     private Grinder grinder;
     private MilkProvider milkProvider;
+    private CoffeeReceipe coffeeReceipe;
+    private Map<CoffeeSize, Integer> waterAmount;
+    private CoffeOrder coffeeOrder;
 
     @Before
     public void init(){
@@ -28,42 +33,38 @@ public class CoffeeMachineTest {
         grinder = mock(Grinder.class);
         milkProvider = mock(MilkProvider.class);
         coffeeReceipes = mock(CoffeeReceipes.class);
+        waterAmount = new HashMap<>();
+        waterAmount.put(CoffeeSize.SMALL, WATER_AMOUNT);
+        coffeeReceipe = CoffeeReceipe.builder().withWaterAmounts(waterAmount).withMilkAmount(MILK_AMOUNT).build();
+        coffeeOrder = CoffeOrder.builder().withSize(CoffeeSize.SMALL).withType(CoffeType.ESPRESSO).build();
     }
 
     @Test(expected = UnknownCofeeTypeException.class)
     public void validateShouldThrowUnknownCoffeeTypeExceptionTest(){
-        CoffeOrder coffeOrder = CoffeOrder.builder().withSize(CoffeeSize.SMALL).withType(CoffeType.ESPRESSO).build();
         when(coffeeReceipes.getReceipe(any(CoffeType.class))).thenReturn(null);
         coffeeMachine = new CoffeeMachine(grinder, milkProvider, coffeeReceipes);
-        coffeeMachine.make(coffeOrder);
+        coffeeMachine.make(coffeeOrder);
     }
 
     @Test(expected = NoCoffeeBeansException.class)
     public void grindCoffeeShouldThrowNoCoffeeBeansExceptionTest(){
-        CoffeOrder coffeOrder = CoffeOrder.builder().withSize(CoffeeSize.SMALL).withType(CoffeType.ESPRESSO).build();
-        Map<CoffeeSize, Integer> waterAmount = new HashMap<>();
-        waterAmount.put(CoffeeSize.SMALL, 5);
-        CoffeeReceipe coffeeReceipe = CoffeeReceipe.builder().withWaterAmounts(waterAmount).withMilkAmount(5).build();
         when(coffeeReceipes.getReceipe(any(CoffeType.class))).thenReturn(coffeeReceipe);
         when(grinder.grind(CoffeeSize.SMALL)).thenReturn(false);
         coffeeMachine = new CoffeeMachine(grinder, milkProvider, coffeeReceipes);
-        coffeeMachine.make(coffeOrder);
+        coffeeMachine.make(coffeeOrder);
     }
 
 
     @Test
     public void testIfMadeCoffeeHasProperAmountOfWaterAndMilkTest(){
-        CoffeOrder coffeOrder = CoffeOrder.builder().withSize(CoffeeSize.SMALL).withType(CoffeType.ESPRESSO).build();
-        Map<CoffeeSize, Integer> waterAmount = new HashMap<>();
-        waterAmount.put(CoffeeSize.SMALL, 5);
-        CoffeeReceipe coffeeReceipe = CoffeeReceipe.builder().withWaterAmounts(waterAmount).withMilkAmount(5).build();
         when(coffeeReceipes.getReceipe(any(CoffeType.class))).thenReturn(coffeeReceipe);
         when(grinder.grind(CoffeeSize.SMALL)).thenReturn(true);
-        coffeeMachine = new CoffeeMachine(grinder, milkProvider, coffeeReceipes);
-        coffee.setMilkAmout(5);
-        coffee.setWaterAmount(5);
 
-        Coffee coffeeMadeByMachine = coffeeMachine.make(coffeOrder);
+        coffeeMachine = new CoffeeMachine(grinder, milkProvider, coffeeReceipes);
+        coffee.setMilkAmout(MILK_AMOUNT);
+        coffee.setWaterAmount(WATER_AMOUNT);
+
+        Coffee coffeeMadeByMachine = coffeeMachine.make(coffeeOrder);
 
         assertThat(coffee.getMilkAmout(), is(equalTo(coffeeMadeByMachine.getMilkAmout())));
         assertThat(coffee.getWaterAmount(), is(equalTo(coffeeMadeByMachine.getWaterAmount())));
@@ -72,34 +73,23 @@ public class CoffeeMachineTest {
 
     @Test
     public void grinderShouldGrindCoffeeBeansOnceTest(){
-        CoffeOrder coffeOrder = CoffeOrder.builder().withSize(CoffeeSize.SMALL).withType(CoffeType.ESPRESSO).build();
-        Map<CoffeeSize, Integer> waterAmount = new HashMap<>();
-        waterAmount.put(CoffeeSize.SMALL, 5);
-        CoffeeReceipe coffeeReceipe = CoffeeReceipe.builder().withWaterAmounts(waterAmount).withMilkAmount(5).build();
         when(coffeeReceipes.getReceipe(any(CoffeType.class))).thenReturn(coffeeReceipe);
         when(grinder.grind(CoffeeSize.SMALL)).thenReturn(true);
         coffeeMachine = new CoffeeMachine(grinder, milkProvider, coffeeReceipes);
-        coffeeMachine.make(coffeOrder);
+        coffeeMachine.make(coffeeOrder);
 
         verify(grinder, times(1)).grind(Mockito.any());
     }
 
     @Test
     public void milkProviderShouldPourMilkOnceTest(){
-
-        int milkAmount = 5;
-
-        CoffeOrder coffeOrder = CoffeOrder.builder().withSize(CoffeeSize.SMALL).withType(CoffeType.ESPRESSO).build();
-        Map<CoffeeSize, Integer> waterAmount = new HashMap<>();
-        waterAmount.put(CoffeeSize.SMALL, milkAmount);
-        CoffeeReceipe coffeeReceipe = CoffeeReceipe.builder().withWaterAmounts(waterAmount).withMilkAmount(milkAmount).build();
         when(coffeeReceipes.getReceipe(any(CoffeType.class))).thenReturn(coffeeReceipe);
         when(grinder.grind(CoffeeSize.SMALL)).thenReturn(true);
 
         coffeeMachine = new CoffeeMachine(grinder, milkProvider, coffeeReceipes);
-        coffeeMachine.make(coffeOrder);
+        coffeeMachine.make(coffeeOrder);
 
-        verify(milkProvider, times(1)).pour(milkAmount);
+        verify(milkProvider, times(1)).pour(MILK_AMOUNT);
     }
 
     @Test
@@ -107,15 +97,12 @@ public class CoffeeMachineTest {
 
         int milkAmount = 0;
 
-        CoffeOrder coffeOrder = CoffeOrder.builder().withSize(CoffeeSize.SMALL).withType(CoffeType.ESPRESSO).build();
-        Map<CoffeeSize, Integer> waterAmount = new HashMap<>();
-        waterAmount.put(CoffeeSize.SMALL, milkAmount);
-        CoffeeReceipe coffeeReceipe = CoffeeReceipe.builder().withWaterAmounts(waterAmount).withMilkAmount(milkAmount).build();
+        coffeeReceipe = CoffeeReceipe.builder().withWaterAmounts(waterAmount).withMilkAmount(milkAmount).build();
         when(coffeeReceipes.getReceipe(any(CoffeType.class))).thenReturn(coffeeReceipe);
         when(grinder.grind(CoffeeSize.SMALL)).thenReturn(true);
 
         coffeeMachine = new CoffeeMachine(grinder, milkProvider, coffeeReceipes);
-        coffeeMachine.make(coffeOrder);
+        coffeeMachine.make(coffeeOrder);
 
         verify(milkProvider, times(0)).pour(milkAmount);
     }
