@@ -3,7 +3,9 @@ package edu.iis.mto.testreactor.exc1;
 import static org.hamcrest.Matchers.equalTo;
 import static org.junit.Assert.assertThat;
 import static org.mockito.Matchers.any;
+import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
+import static org.mockito.internal.verification.VerificationModeFactory.times;
 
 import org.hamcrest.Matchers;
 import org.junit.Assert;
@@ -96,4 +98,20 @@ public class CoffeeMachineTest {
         Coffee coffee = coffeeMachine.make(coffeOrder);
         Assert.assertThat(coffee.getWaterAmount(), Matchers.equalTo(waterAmount));
     }
+
+
+    @Test public void MilkProviderInterfaceMethodShouldBeCalledOneTime() {
+
+        CoffeOrder.Builder coffeOrderBuilder = new CoffeOrder.Builder();
+        coffeOrderBuilder.withSize(small);
+        coffeOrderBuilder.withType(capuccino);
+
+        coffeOrder = coffeOrderBuilder.build();
+        when(coffeeReceipes.getReceipe(any())).thenReturn(coffeeReceipe);
+
+        Coffee coffee = coffeeMachine.make(coffeOrder);
+        verify(milkProvider, times(1)).pour(milkAmount);
+
+    }
+
 }
