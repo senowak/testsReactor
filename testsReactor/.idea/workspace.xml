@@ -17,13 +17,23 @@
           <file leaf-file-name="CoffeeMachineTest.java" pinned="false" current-in-tab="true">
             <entry file="file://$PROJECT_DIR$/src/test/java/edu/iis/mto/testreactor/exc1/CoffeeMachineTest.java">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="861">
-                  <caret line="62" column="5" lean-forward="true" selection-start-line="62" selection-start-column="5" selection-end-line="62" selection-end-column="5" />
+                <state relative-caret-position="339">
+                  <caret line="70" column="5" lean-forward="false" selection-start-line="70" selection-start-column="5" selection-end-line="70" selection-end-column="5" />
                   <folding>
                     <element signature="imports" expanded="true" />
-                    <element signature="e#2039#2040#0" expanded="true" />
-                    <element signature="e#2105#2106#0" expanded="true" />
+                    <element signature="e#2044#2045#0" expanded="true" />
+                    <element signature="e#2110#2111#0" expanded="true" />
                   </folding>
+                </state>
+              </provider>
+            </entry>
+          </file>
+          <file leaf-file-name="Coffee.java" pinned="false" current-in-tab="false">
+            <entry file="file://$PROJECT_DIR$/src/main/java/edu/iis/mto/testreactor/exc1/Coffee.java">
+              <provider selected="true" editor-type-id="text-editor">
+                <state relative-caret-position="42">
+                  <caret line="2" column="13" lean-forward="false" selection-start-line="2" selection-start-column="13" selection-end-line="2" selection-end-column="13" />
+                  <folding />
                 </state>
               </provider>
             </entry>
@@ -82,7 +92,7 @@
       </split-first>
       <split-second>
         <leaf>
-          <file leaf-file-name="CoffeeReceipe.java" pinned="false" current-in-tab="true">
+          <file leaf-file-name="CoffeeReceipe.java" pinned="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/src/main/java/edu/iis/mto/testreactor/exc1/CoffeeReceipe.java">
               <provider selected="true" editor-type-id="text-editor">
                 <state relative-caret-position="840">
@@ -92,11 +102,21 @@
               </provider>
             </entry>
           </file>
-          <file leaf-file-name="CoffeeMachine.java" pinned="false" current-in-tab="false">
+          <file leaf-file-name="CoffeeMachine.java" pinned="false" current-in-tab="true">
             <entry file="file://$PROJECT_DIR$/src/main/java/edu/iis/mto/testreactor/exc1/CoffeeMachine.java">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="0">
-                  <caret line="0" column="37" lean-forward="true" selection-start-line="0" selection-start-column="37" selection-end-line="0" selection-end-column="37" />
+                <state relative-caret-position="798">
+                  <caret line="38" column="28" lean-forward="false" selection-start-line="38" selection-start-column="17" selection-end-line="38" selection-end-column="28" />
+                  <folding />
+                </state>
+              </provider>
+            </entry>
+          </file>
+          <file leaf-file-name="NoCoffeeBeansException.java" pinned="false" current-in-tab="false">
+            <entry file="file://$PROJECT_DIR$/src/main/java/edu/iis/mto/testreactor/exc1/NoCoffeeBeansException.java">
+              <provider selected="true" editor-type-id="text-editor">
+                <state relative-caret-position="42">
+                  <caret line="2" column="13" lean-forward="false" selection-start-line="2" selection-start-column="13" selection-end-line="2" selection-end-column="13" />
                   <folding />
                 </state>
               </provider>
@@ -393,44 +413,44 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1557847846798</updated>
-      <workItem from="1557847848092" duration="4319000" />
+      <workItem from="1557847848092" duration="5435000" />
     </task>
     <servers />
   </component>
   <component name="TestHistory">
-    <history-entry file="CoffeeMachineTest - 2019.05.14 at 17h 47m 09s.xml">
+    <history-entry file="CoffeeMachineTest - 2019.05.14 at 18h 51m 30s.xml">
       <configuration name="CoffeeMachineTest" configurationId="JUnit" />
     </history-entry>
-    <history-entry file="CoffeeMachineTest - 2019.05.14 at 18h 12m 32s.xml">
+    <history-entry file="CoffeeMachineTest - 2019.05.14 at 18h 52m 43s.xml">
       <configuration name="CoffeeMachineTest" configurationId="JUnit" />
     </history-entry>
-    <history-entry file="CoffeeMachineTest - 2019.05.14 at 18h 26m 49s.xml">
+    <history-entry file="CoffeeMachineTest - 2019.05.14 at 18h 52m 52s.xml">
       <configuration name="CoffeeMachineTest" configurationId="JUnit" />
     </history-entry>
-    <history-entry file="CoffeeMachineTest - 2019.05.14 at 18h 27m 05s.xml">
+    <history-entry file="CoffeeMachineTest - 2019.05.14 at 18h 53m 08s.xml">
       <configuration name="CoffeeMachineTest" configurationId="JUnit" />
     </history-entry>
-    <history-entry file="CoffeeMachineTest - 2019.05.14 at 18h 27m 34s.xml">
+    <history-entry file="CoffeeMachineTest - 2019.05.14 at 18h 53m 37s.xml">
       <configuration name="CoffeeMachineTest" configurationId="JUnit" />
     </history-entry>
-    <history-entry file="CoffeeMachineTest - 2019.05.14 at 18h 39m 30s.xml">
+    <history-entry file="CoffeeMachineTest - 2019.05.14 at 18h 55m 31s.xml">
       <configuration name="CoffeeMachineTest" configurationId="JUnit" />
     </history-entry>
-    <history-entry file="CoffeeMachineTest - 2019.05.14 at 18h 40m 00s.xml">
+    <history-entry file="CoffeeMachineTest - 2019.05.14 at 18h 56m 09s.xml">
       <configuration name="CoffeeMachineTest" configurationId="JUnit" />
     </history-entry>
-    <history-entry file="CoffeeMachineTest - 2019.05.14 at 18h 40m 52s.xml">
+    <history-entry file="CoffeeMachineTest - 2019.05.14 at 18h 56m 41s.xml">
       <configuration name="CoffeeMachineTest" configurationId="JUnit" />
     </history-entry>
-    <history-entry file="CoffeeMachineTest - 2019.05.14 at 18h 42m 49s.xml">
+    <history-entry file="CoffeeMachineTest - 2019.05.14 at 18h 57m 41s.xml">
       <configuration name="CoffeeMachineTest" configurationId="JUnit" />
     </history-entry>
-    <history-entry file="CoffeeMachineTest_itCompiles - 2019.05.14 at 18h 12m 26s.xml">
-      <configuration name="CoffeeMachineTest.itCompiles" configurationId="JUnit" />
+    <history-entry file="CoffeeMachineTest - 2019.05.14 at 18h 59m 04s.xml">
+      <configuration name="CoffeeMachineTest" configurationId="JUnit" />
     </history-entry>
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="4319000" />
+    <option name="totallyTimeSpent" value="5435000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-9" y="-9" width="1938" height="1048" extended-state="6" />
@@ -445,7 +465,7 @@
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="-1" side_tool="true" content_ui="tabs" />
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="false" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.32930845" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.32930845" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
       <window_info id="Capture Tool" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
       <window_info id="Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
@@ -510,7 +530,7 @@
           <option name="timeStamp" value="2" />
         </line-breakpoint>
       </breakpoints>
-      <option name="time" value="3" />
+      <option name="time" value="4" />
     </breakpoint-manager>
     <watches-manager />
   </component>
@@ -523,42 +543,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/edu/iis/mto/testreactor/exc1/Coffee.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="42">
-          <caret line="2" column="13" lean-forward="false" selection-start-line="2" selection-start-column="13" selection-end-line="2" selection-end-column="13" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/edu/iis/mto/testreactor/exc1/NoCoffeeBeansException.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="42">
-          <caret line="2" column="13" lean-forward="false" selection-start-line="2" selection-start-column="13" selection-end-line="2" selection-end-column="13" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/edu/iis/mto/testreactor/exc1/CoffeOrder.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="84">
           <caret line="4" column="13" lean-forward="false" selection-start-line="4" selection-start-column="13" selection-end-line="4" selection-end-column="13" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/edu/iis/mto/testreactor/exc1/CoffeeMachine.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="37" lean-forward="true" selection-start-line="0" selection-start-column="37" selection-end-line="0" selection-end-column="37" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/edu/iis/mto/testreactor/exc1/CoffeeReceipes.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="42">
-          <caret line="2" column="17" lean-forward="false" selection-start-line="2" selection-start-column="17" selection-end-line="2" selection-end-column="17" />
           <folding />
         </state>
       </provider>
@@ -587,6 +575,30 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/edu/iis/mto/testreactor/exc1/NoCoffeeBeansException.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="42">
+          <caret line="2" column="13" lean-forward="false" selection-start-line="2" selection-start-column="13" selection-end-line="2" selection-end-column="13" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/edu/iis/mto/testreactor/exc1/CoffeeReceipes.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="42">
+          <caret line="2" column="17" lean-forward="false" selection-start-line="2" selection-start-column="17" selection-end-line="2" selection-end-column="17" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/edu/iis/mto/testreactor/exc1/Coffee.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="42">
+          <caret line="2" column="13" lean-forward="false" selection-start-line="2" selection-start-column="13" selection-end-line="2" selection-end-column="13" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/edu/iis/mto/testreactor/exc1/CoffeeReceipe.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="273">
@@ -595,14 +607,22 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/edu/iis/mto/testreactor/exc1/CoffeeMachine.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="798">
+          <caret line="38" column="28" lean-forward="false" selection-start-line="38" selection-start-column="17" selection-end-line="38" selection-end-column="28" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/test/java/edu/iis/mto/testreactor/exc1/CoffeeMachineTest.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="861">
-          <caret line="62" column="5" lean-forward="true" selection-start-line="62" selection-start-column="5" selection-end-line="62" selection-end-column="5" />
+        <state relative-caret-position="339">
+          <caret line="70" column="5" lean-forward="false" selection-start-line="70" selection-start-column="5" selection-end-line="70" selection-end-column="5" />
           <folding>
             <element signature="imports" expanded="true" />
-            <element signature="e#2039#2040#0" expanded="true" />
-            <element signature="e#2105#2106#0" expanded="true" />
+            <element signature="e#2044#2045#0" expanded="true" />
+            <element signature="e#2110#2111#0" expanded="true" />
           </folding>
         </state>
       </provider>

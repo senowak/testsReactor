@@ -33,6 +33,9 @@ public class CoffeeMachineTest {
     private CoffeeReceipe coffeeReceipe;
     private CoffeOrder coffeOrder;
 
+    public Map<CoffeeSize, Integer> waterAmounts = new HashMap<>();
+
+
     @Before
     public void init(){
         grinder = mock(Grinder.class);
@@ -40,7 +43,6 @@ public class CoffeeMachineTest {
         coffeeReceipes = mock(CoffeeReceipes.class);
         coffeeMachine = new CoffeeMachine(grinder,milkProvider,coffeeReceipes);
         coffeOrder = CoffeOrder.builder().withSize(CoffeeSize.SMALL).withType(CoffeType.CAPUCCINO).build();
-        Map<CoffeeSize, Integer> waterAmounts = new HashMap<>();
         waterAmounts.put(CoffeeSize.SMALL,150);
         coffeeReceipe = CoffeeReceipe.builder().withMilkAmount(150).withWaterAmounts(waterAmounts).build();
     }
@@ -62,5 +64,9 @@ public class CoffeeMachineTest {
         Assert.assertEquals(coffeeReceipe.withMilk(),true);
     }
 
-
+    @Test (expected = NoCoffeeBeansException.class)
+    public void testIfThereAreBeans(){
+        Coffee coffee = coffeeMachine.make(coffeOrder);
+        assertEquals(coffee.getMilkAmout(),coffeeReceipe.getMilkAmount());
+    }
 }
