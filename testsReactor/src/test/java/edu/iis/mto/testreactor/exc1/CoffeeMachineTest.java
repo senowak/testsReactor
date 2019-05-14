@@ -56,6 +56,11 @@ public class CoffeeMachineTest {
         Assert.assertEquals(coffeeReceipe.getMilkAmount(),150);
         Assert.assertEquals(coffeeReceipe.getWaterAmount(CoffeeSize.SMALL), new Integer(150));
     }
-    
+
+    @Test
+    public void testIfCoffeRecepieHasMilkInIt(){
+        Assert.assertEquals(coffeeReceipe.withMilk(),true);
+    }
+
 
 }
