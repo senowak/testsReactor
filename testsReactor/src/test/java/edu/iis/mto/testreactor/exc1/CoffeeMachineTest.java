@@ -89,4 +89,12 @@ public class CoffeeMachineTest {
         Assert.assertThat(otherCoffee.getWaterAmount(), is(equalTo(coffee.getWaterAmount())));
     }
 
+    @Test
+    public void milkProviderShouldBeCalledAtLeastOnce(){
+        when(grinder.grind(CoffeeSize.STANDARD)).thenReturn(true);
+        when(coffeeReceipes.getReceipe(CoffeType.ESPRESSO)).thenReturn(coffeeReceipe);
+        coffeeMachine.make(coffeOrder);
+        verify(milkProvider, atLeastOnce()).pour(returnNotImportantMilkAmount());
+    }
+
 }
