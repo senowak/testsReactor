@@ -32,8 +32,7 @@ import java.util.Map;
         coffeOrder = CoffeOrder.builder().withSize(CoffeeSize.SMALL).withType(CoffeType.ESPRESSO).build();
     }
 
-    @Test(expected = NoCoffeeBeansException.class)
-    public void shouldThrowNoCoffeeBeansExceptionWhenThereIsNoCoffee() {
+    @Test(expected = NoCoffeeBeansException.class) public void shouldThrowNoCoffeeBeansExceptionWhenThereIsNoCoffee() {
         when(grinder.grind(CoffeeSize.SMALL)).thenReturn(false);
         coffeeMachine.make(coffeOrder);
     }
@@ -47,10 +46,18 @@ import java.util.Map;
         Coffee coffee = coffeeMachine.make(coffeOrder);
         assertThat(coffeeReceipe.getWaterAmount(CoffeeSize.SMALL), is(coffee.getWaterAmount()));
     }
-    @Test public void methodGrindShouldNeverCalled(){
+
+    @Test public void methodGrindShouldNeverCalled() {
         when(grinder.grind(CoffeeSize.SMALL)).thenReturn(false);
-        verify(grinder,times(0)).grind(CoffeeSize.SMALL);
+        verify(grinder, times(0)).grind(CoffeeSize.SMALL);
     }
+
+    @Test(expected = IllegalArgumentException.class) public void shouldThrowIllegalArgumentExceptionWhenThereIsNoReceiptForOrder() {
+        when(grinder.grind(CoffeeSize.SMALL)).thenReturn(true);
+        when(coffeeReceipes.getReceipe(CoffeType.ESPRESSO)).thenReturn(null);
+        coffeeMachine.make(coffeOrder);
+    }
+
 
 }
 
