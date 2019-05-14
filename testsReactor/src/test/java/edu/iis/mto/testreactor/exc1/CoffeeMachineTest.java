@@ -5,6 +5,7 @@ import static org.hamcrest.Matchers.is;
 import static org.junit.Assert.assertThat;
 import static org.mockito.Mockito.*;
 
+import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -58,6 +59,11 @@ import java.util.Map;
         coffeeMachine.make(coffeOrder);
     }
 
+    @Test public void methodWithTypeShouldReturnCorrectTypeAndSize() {
+        CoffeOrder coffeOrderTest = CoffeOrder.builder().withSize(CoffeeSize.STANDARD).withType(CoffeType.CAPUCCINO).build();
+        Assert.assertEquals(coffeOrderTest.getType(), CoffeType.CAPUCCINO);
+        Assert.assertEquals(coffeOrderTest.getSize(), CoffeeSize.STANDARD);
+    }
 
 }
 
