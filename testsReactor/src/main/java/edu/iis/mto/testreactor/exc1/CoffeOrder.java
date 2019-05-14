@@ -7,7 +7,7 @@ public class CoffeOrder {
     private final CoffeeSize size;
     private final CoffeType type;
 
-    private CoffeOrder(Builder builder) {
+    public CoffeOrder(Builder builder) {
         this.size = Objects.requireNonNull(builder.size, "size == null");
         this.type = Objects.requireNonNull(builder.type, "type == null");
     }
@@ -34,7 +34,7 @@ public class CoffeOrder {
         private CoffeeSize size;
         private CoffeType type;
 
-        private Builder() {}
+        public Builder() {}
 
         public Builder withSize(CoffeeSize size) {
             this.size = size;
