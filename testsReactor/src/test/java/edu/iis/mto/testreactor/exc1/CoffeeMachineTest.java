@@ -16,7 +16,6 @@ import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
 
 import java.util.HashMap;
-import java.util.Map;
 
 @RunWith(MockitoJUnitRunner.class)
 public class CoffeeMachineTest {
@@ -29,8 +28,6 @@ public class CoffeeMachineTest {
     private int milkAmount = 2;
     private int waterAmount = 5;
 
-    @Mock
-    private Coffee coffee;
     @Mock
     private Grinder grinder;
     @Mock
