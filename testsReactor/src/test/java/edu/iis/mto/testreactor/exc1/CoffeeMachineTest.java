@@ -3,7 +3,7 @@ package edu.iis.mto.testreactor.exc1;
 import static org.hamcrest.Matchers.equalTo;
 import static org.hamcrest.Matchers.is;
 import static org.junit.Assert.assertThat;
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.*;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -17,7 +17,6 @@ import java.util.Map;
 
 @RunWith(MockitoJUnitRunner.class) public class CoffeeMachineTest {
 
-    Coffee coffee;
     CoffeOrder coffeOrder;
     CoffeeMachine coffeeMachine;
     CoffeeReceipe coffeeReceipe;
@@ -29,13 +28,11 @@ import java.util.Map;
     @Mock MilkProvider milkProvider;
 
     @Before public void setup() {
-        coffee = new Coffee();
         coffeeMachine = new CoffeeMachine(grinder, milkProvider, coffeeReceipes);
         coffeOrder = CoffeOrder.builder().withSize(CoffeeSize.SMALL).withType(CoffeType.ESPRESSO).build();
     }
 
     @Test(expected = NoCoffeeBeansException.class)
-
     public void shouldThrowNoCoffeeBeansExceptionWhenThereIsNoCoffee() {
         when(grinder.grind(CoffeeSize.SMALL)).thenReturn(false);
         coffeeMachine.make(coffeOrder);
@@ -50,9 +47,9 @@ import java.util.Map;
         Coffee coffee = coffeeMachine.make(coffeOrder);
         assertThat(coffeeReceipe.getWaterAmount(CoffeeSize.SMALL), is(coffee.getWaterAmount()));
     }
-
-    @Test public void itCompiles() {
-        assertThat(true, equalTo(true));
+    @Test public void methodGrindShouldNeverCalled(){
+        when(grinder.grind(CoffeeSize.SMALL)).thenReturn(false);
+        verify(grinder,times(0)).grind(CoffeeSize.SMALL);
     }
 
 }
