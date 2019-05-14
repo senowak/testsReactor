@@ -76,4 +76,12 @@ public class CoffeeMachineTest {
         assertThrows(NullPointerException.class, () -> coffeeMachine.make(coffeOrder));
     }
 
+    @Test public void testCoffeMachineMakeNoMilkAmount() {
+        CoffeeReceipe coffeeReceipe = CoffeeReceipe.builder().withWaterAmounts(map).build();
+        when(coffeeReceipes.getReceipe(CoffeType.ESPRESSO)).thenReturn(coffeeReceipe);
+        when(grinder.grind(CoffeeSize.STANDARD)).thenReturn(true);
+        CoffeOrder coffeOrder = CoffeOrder.builder().withType(CoffeType.ESPRESSO).withSize(CoffeeSize.STANDARD).build();
+        Coffee result = coffeeMachine.make(coffeOrder);
+        assertThat(result.getMilkAmout(), is(0));
+    }
 }
