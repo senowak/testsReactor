@@ -103,6 +103,24 @@ public class CoffeeMachineTest {
     }
 
     @Test
+    public void milkProviderShouldNotPourMilkWhenCoffeeNotContainItTest(){
+
+        int milkAmount = 0;
+
+        CoffeOrder coffeOrder = CoffeOrder.builder().withSize(CoffeeSize.SMALL).withType(CoffeType.ESPRESSO).build();
+        Map<CoffeeSize, Integer> waterAmount = new HashMap<>();
+        waterAmount.put(CoffeeSize.SMALL, milkAmount);
+        CoffeeReceipe coffeeReceipe = CoffeeReceipe.builder().withWaterAmounts(waterAmount).withMilkAmount(milkAmount).build();
+        when(coffeeReceipes.getReceipe(any(CoffeType.class))).thenReturn(coffeeReceipe);
+        when(grinder.grind(CoffeeSize.SMALL)).thenReturn(true);
+
+        coffeeMachine = new CoffeeMachine(grinder, milkProvider, coffeeReceipes);
+        coffeeMachine.make(coffeOrder);
+
+        verify(milkProvider, times(0)).pour(milkAmount);
+    }
+
+    @Test
     public void itCompiles() {
         assertThat(true, equalTo(true));
     }
