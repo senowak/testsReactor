@@ -10,7 +10,6 @@ import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mock;
-import org.mockito.Mockito;
 import org.mockito.runners.MockitoJUnitRunner;
 
 import java.util.HashMap;
@@ -36,7 +35,7 @@ import java.util.Map;
         coffeOrder = CoffeOrder.builder().withSize(CoffeeSize.SMALL).withType(CoffeType.ESPRESSO).build();
     }
 
-    @Test(expected = NoCoffeeBeansException.class) public void shouldThrowNoCoffeeBeansExceptionWhenThereIsNoCoffee() {
+    @Test(expected = NoCoffeeBeansException.class) public void whenThereIsNoCoffeeShouldThrowNoCoffeeBeansException() {
         when(grinder.grind(CoffeeSize.SMALL)).thenReturn(false);
         coffeeMachine.make(coffeOrder);
     }
