@@ -16,6 +16,7 @@ import org.mockito.Mock;
 import org.mockito.junit.MockitoJUnitRunner;
 
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.Map;
 
 @RunWith(MockitoJUnitRunner.class)
@@ -30,7 +31,6 @@ public class CoffeeMachineTest {
 
     private CoffeeMachine coffeeMachine;
     private CoffeeReceipe coffeeReceipe;
-    private CoffeeReceipe.Builder builder;
     private CoffeOrder coffeOrder;
 
     @Before
@@ -40,14 +40,22 @@ public class CoffeeMachineTest {
         coffeeReceipes = mock(CoffeeReceipes.class);
         coffeeMachine = new CoffeeMachine(grinder,milkProvider,coffeeReceipes);
         coffeOrder = CoffeOrder.builder().withSize(CoffeeSize.SMALL).withType(CoffeType.CAPUCCINO).build();
-
+        Map<CoffeeSize, Integer> waterAmounts = new HashMap<>();
+        waterAmounts.put(CoffeeSize.SMALL,150);
+        coffeeReceipe = CoffeeReceipe.builder().withMilkAmount(150).withWaterAmounts(waterAmounts).build();
     }
 
     @Test
-    public void testIfCoffeTypeAndSizeIsCorrect(){
+    public void testIfCoffeOrderTypeAndSizeIsCorrect(){
         Assert.assertEquals(coffeOrder.getType(),CoffeType.CAPUCCINO);
         Assert.assertEquals(coffeOrder.getSize(),CoffeeSize.SMALL);
     }
 
+    @Test
+    public void testIfCoffeReceipeMilkAndWaterIsCorrect(){
+        Assert.assertEquals(coffeeReceipe.getMilkAmount(),150);
+        Assert.assertEquals(coffeeReceipe.getWaterAmount(CoffeeSize.SMALL), new Integer(150));
+    }
+    
 
 }
