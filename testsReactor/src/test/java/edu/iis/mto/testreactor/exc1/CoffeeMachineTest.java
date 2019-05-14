@@ -21,6 +21,7 @@ import java.util.Map;
     CoffeOrder coffeOrder;
     CoffeeMachine coffeeMachine;
     CoffeeReceipe coffeeReceipe;
+    Map<CoffeeSize, Integer> coffeeMap;
 
     @Mock CoffeeReceipes coffeeReceipes;
 
@@ -29,6 +30,8 @@ import java.util.Map;
     @Mock MilkProvider milkProvider;
 
     @Before public void setup() {
+        coffeeMap = new HashMap<>();
+        coffeeMap.put(CoffeeSize.SMALL, 30);
         coffeeMachine = new CoffeeMachine(grinder, milkProvider, coffeeReceipes);
         coffeOrder = CoffeOrder.builder().withSize(CoffeeSize.SMALL).withType(CoffeType.ESPRESSO).build();
     }
@@ -39,8 +42,6 @@ import java.util.Map;
     }
 
     @Test public void shouldReturnCoffeeWithTheSameAmountOfWaterAsInCoffeeReceipt() {
-        Map<CoffeeSize, Integer> coffeeMap = new HashMap<>();
-        coffeeMap.put(CoffeeSize.SMALL, 30);
         coffeeReceipe = CoffeeReceipe.builder().withMilkAmount(15).withWaterAmounts(coffeeMap).build();
         when(grinder.grind(CoffeeSize.SMALL)).thenReturn(true);
         when(coffeeReceipes.getReceipe(CoffeType.ESPRESSO)).thenReturn(coffeeReceipe);
@@ -66,8 +67,6 @@ import java.util.Map;
     }
 
     @Test(expected = NoCoffeeBeansException.class) public void whenTheCoffeeSizeIsDifferentThrowNoCoffeeBeansException() {
-        Map<CoffeeSize, Integer> coffeeMap = new HashMap<>();
-        coffeeMap.put(CoffeeSize.SMALL, 30);
         coffeeReceipe = CoffeeReceipe.builder().withMilkAmount(20).withWaterAmounts(coffeeMap).build();
         when(grinder.grind(CoffeeSize.STANDARD)).thenReturn(true);
         when(coffeeReceipes.getReceipe(CoffeType.ESPRESSO)).thenReturn(coffeeReceipe);
