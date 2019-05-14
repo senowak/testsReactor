@@ -11,6 +11,7 @@ import org.hamcrest.core.Is;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.mockito.ArgumentCaptor;
 import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
 
@@ -130,6 +131,20 @@ import java.util.HashMap;
         coffeeMachine.make(coffeOrder);
 
         verify(milkProvider, times(0)).pour(any(Integer.class));
+
+    }
+
+    @Test
+    public void methodMakeShouldCallMethodPourWithCorrectParameter(){
+
+        when(coffeeReceipes.getReceipe(any(CoffeType.class))).thenReturn(coffeeWithMilkReceipe);
+
+        coffeeMachine.make(coffeOrder);
+
+        ArgumentCaptor<Integer> argument = ArgumentCaptor.forClass(Integer.class);
+        verify(milkProvider).pour(argument.capture());
+
+        assertThat(argument.getValue(), Is.is(5));
 
     }
 
