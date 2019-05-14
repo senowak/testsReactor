@@ -122,4 +122,15 @@ import java.util.HashMap;
 
     }
 
+    @Test
+    public void methodMakeShouldNotCallMethodPourWhenCoffeeIsNotWithMilk(){
+
+        when(coffeeReceipes.getReceipe(any(CoffeType.class))).thenReturn(coffeeWithoutMilkReceipe);
+
+        coffeeMachine.make(coffeOrder);
+
+        verify(milkProvider, times(0)).pour(any(Integer.class));
+
+    }
+
 }
