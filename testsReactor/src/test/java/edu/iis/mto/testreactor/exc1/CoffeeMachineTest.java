@@ -28,4 +28,18 @@ public class CoffeeMachineTest {
     }
 
 
+    @Test (expected = UnknownCofeeTypeException.class)
+    public void testShouldReturnUnknownCoffeeTypeException(){
+
+        CoffeOrder coffeOrder = CoffeOrder.builder()
+                .withSize(CoffeeSize.SMALL)
+                .withType(CoffeType.LATTE)
+                .build();
+        Mockito.when(grinder.grind(CoffeeSize.SMALL)).thenReturn(true);
+        Mockito.when(coffeeReceipes.getReceipe(CoffeType.LATTE)).thenReturn(null);
+
+        coffeeMachine.make(coffeOrder);
+
+    }
+
 }
