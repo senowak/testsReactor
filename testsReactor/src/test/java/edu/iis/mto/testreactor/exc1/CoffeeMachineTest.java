@@ -3,6 +3,8 @@ package edu.iis.mto.testreactor.exc1;
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.Matchers.equalTo;
 import static org.junit.Assert.assertThat;
+import static org.mockito.Mockito.atLeastOnce;
+import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 import org.junit.Assert;
@@ -44,17 +46,30 @@ public class CoffeeMachineTest {
 
     @Test
     public void OrderForStandardCoffeeShouldReturnStandardCoffee() {
-        when(grinder.grind(CoffeeSize.STANDARD)).thenReturn(true);
-        CoffeeReceipe receipe = CoffeeReceipe.builder()
-                                             .withMilkAmount(1)
-                                             .withWaterAmounts(this.coffeeSizes)
-                                             .build();
-        when(receipes.getReceipe(CoffeType.CAPUCCINO)).thenReturn(receipe);
-
-        CoffeOrder order = CoffeOrder.builder().withSize(CoffeeSize.STANDARD).withType(CoffeType.CAPUCCINO).build();
+        CoffeOrder order = createOrderAndSetDefaultMockConfiguration(1, CoffeeSize.STANDARD, CoffeType.CAPUCCINO);
         Coffee result = machine.make(order);
 
         Assert.assertThat(result.getMilkAmout(), is(1));
         Assert.assertThat(result.getWaterAmount(), is(2));
+    }
+
+    @Test
+    public void coffeeMachineShouldUseGrinderAndMilkProviderAndCoffeeReceipes() {
+        machine.make(createOrderAndSetDefaultMockConfiguration(1, CoffeeSize.STANDARD, CoffeType.CAPUCCINO));
+
+        verify(grinder).grind(CoffeeSize.STANDARD);
+        verify(receipes, atLeastOnce()).getReceipe(CoffeType.CAPUCCINO);
+        verify(milkProvider).pour(1);
+    }
+
+    private CoffeOrder createOrderAndSetDefaultMockConfiguration(int milkAmount, CoffeeSize coffeeSize, CoffeType coffeType) {
+        when(grinder.grind(coffeeSize)).thenReturn(true);
+        CoffeeReceipe receipe = CoffeeReceipe.builder()
+                .withMilkAmount(milkAmount)
+                .withWaterAmounts(this.coffeeSizes)
+                .build();
+        when(receipes.getReceipe(coffeType)).thenReturn(receipe);
+
+        return CoffeOrder.builder().withSize(coffeeSize).withType(coffeType).build();
     }
 }
