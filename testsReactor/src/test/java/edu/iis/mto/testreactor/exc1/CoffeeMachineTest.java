@@ -54,7 +54,7 @@ import java.util.HashMap;
     }
 
     @Test
-    public void waterAmount(){
+    public void methodMakeShouldReturnCoffeeWithCorrectWaterAmount(){
 
         Coffee coffee = coffeeMachine.make(coffeOrder);
 
@@ -63,7 +63,7 @@ import java.util.HashMap;
     }
 
     @Test
-    public void milkAmount(){
+    public void methodMakeShouldReturnCoffeeWithCorrectMilkAmount(){
 
         Coffee coffee = coffeeMachine.make(coffeOrder);
 
