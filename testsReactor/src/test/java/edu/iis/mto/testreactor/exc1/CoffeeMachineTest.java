@@ -37,9 +37,11 @@ public class CoffeeMachineTest {
     }
 
     @Test(expected = NoCoffeeBeansException.class)
-    public void grindCoffeeGrinderGrindShouldBeCalledOnce() {
+    public void grindCoffeeGrinderGrindShouldThrowException() {
         when(grinder.grind(CoffeeSize.STANDARD)).thenReturn(false);
         coffeeMachine.make(coffeOrder);
-        verify(grinder, atLeastOnce()).grind(CoffeeSize.STANDARD);
     }
+
+
+
 }
