@@ -50,6 +50,15 @@ public class CoffeeMachineTest {
         coffeeMachine.make(coffeOrder);
     }
 
+    @Test(expected = UnknownCofeeTypeException.class)
+    public void validateShouldThrowUnknownCoffeeTypeException(){
+        coffeOrder = CoffeOrder.builder().withSize(CoffeeSize.STANDARD).withType(CoffeType.ESPRESSO).build();
+        when(coffeeReceipes.getReceipe(any(CoffeType.class))).thenReturn(null);
+        coffeeMachine = new CoffeeMachine(grinder, milkProvider, coffeeReceipes);
+        coffeeMachine.make(coffeOrder);
+    }
+
+
     @Test
     public void itCompiles() {
         assertThat(true, equalTo(true));
