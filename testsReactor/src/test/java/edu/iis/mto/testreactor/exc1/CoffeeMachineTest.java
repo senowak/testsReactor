@@ -60,4 +60,13 @@ public class CoffeeMachineTest {
         CoffeeMachine coffeeMachine = new CoffeeMachine(grinder, milkProvider, coffeeReceipes);
         assertThrows(UnknownCofeeTypeException.class, () -> coffeeMachine.make(coffeOrder));
     }
+
+    @Test public void testCoffeMachineMakeWrongSize() {
+        CoffeeReceipe coffeeReceipe = CoffeeReceipe.builder().withMilkAmount(100).withWaterAmounts(map).build();
+        when(coffeeReceipes.getReceipe(CoffeType.ESPRESSO)).thenReturn(coffeeReceipe);
+        when(grinder.grind(CoffeeSize.DOUBLE)).thenReturn(true);
+        CoffeOrder coffeOrder = CoffeOrder.builder().withType(CoffeType.ESPRESSO).withSize(CoffeeSize.STANDARD).build();
+        CoffeeMachine coffeeMachine = new CoffeeMachine(grinder, milkProvider, coffeeReceipes);
+        assertThrows(NoCoffeeBeansException.class, () -> coffeeMachine.make(coffeOrder));
+    }
 }
