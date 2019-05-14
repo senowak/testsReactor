@@ -100,7 +100,7 @@ public class CoffeeMachineTest {
     }
 
 
-    @Test public void MilkProviderInterfaceMethodShouldBeCalledOneTime() {
+    @Test public void MilkProviderInterfaceMethodPourShouldBeCalledOneTime() {
 
         CoffeOrder.Builder coffeOrderBuilder = new CoffeOrder.Builder();
         coffeOrderBuilder.withSize(small);
@@ -111,7 +111,20 @@ public class CoffeeMachineTest {
 
         Coffee coffee = coffeeMachine.make(coffeOrder);
         verify(milkProvider, times(1)).pour(milkAmount);
+    }
 
+
+    @Test public void MilkProviderInterfaceMethodHeatShouldBeCalledOneTime() {
+
+        CoffeOrder.Builder coffeOrderBuilder = new CoffeOrder.Builder();
+        coffeOrderBuilder.withSize(small);
+        coffeOrderBuilder.withType(capuccino);
+
+        coffeOrder = coffeOrderBuilder.build();
+        when(coffeeReceipes.getReceipe(any())).thenReturn(coffeeReceipe);
+
+        Coffee coffee = coffeeMachine.make(coffeOrder);
+        verify(milkProvider, times(1)).heat();
     }
 
 }
