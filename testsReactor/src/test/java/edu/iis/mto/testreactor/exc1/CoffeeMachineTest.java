@@ -3,6 +3,8 @@ package edu.iis.mto.testreactor.exc1;
 import static org.hamcrest.Matchers.equalTo;
 import static org.junit.Assert.assertThat;
 import static org.mockito.Matchers.any;
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 import org.hamcrest.core.Is;
@@ -67,6 +69,15 @@ import java.util.HashMap;
 
         assertThat(coffee.getMilkAmout(), Is.is(5));
 
+    }
+
+    @Test
+    public void methodMakeShouldCallMethodGrindOnce(){
+
+        coffeeMachine.make(coffeOrder);
+
+        verify(grinder, times(1)).grind(any(CoffeeSize.class));
+        
     }
 
 }
