@@ -29,7 +29,7 @@ public class CoffeeMachineTest {
 
 
     @Test (expected = UnknownCofeeTypeException.class)
-    public void testShouldReturnUnknownCoffeeTypeException(){
+    public void testShouldThrowUnknownCoffeeTypeExceptionWhenCoffeeTypeIsUnknown(){
 
         CoffeOrder coffeOrder = CoffeOrder.builder()
                 .withSize(CoffeeSize.SMALL)
@@ -41,5 +41,26 @@ public class CoffeeMachineTest {
         coffeeMachine.make(coffeOrder);
 
     }
+
+    @Test(expected = NoCoffeeBeansException.class)
+    public void testShouldThrowNoCoffeeBeansExceptionWhenThereIsNoCoffeeBeans() {
+
+        CoffeOrder coffeOrder = CoffeOrder.builder()
+                .withSize(CoffeeSize.SMALL)
+                .withType(CoffeType.LATTE)
+                .build();
+
+        CoffeeReceipe coffeeReceipe = CoffeeReceipe.builder()
+                .withMilkAmount(10)
+                .withWaterAmounts(new HashMap<>())
+                .build();
+
+        Mockito.when(grinder.grind(CoffeeSize.SMALL)).thenReturn(false);
+        Mockito.when(coffeeReceipes.getReceipe(CoffeType.LATTE)).thenReturn(coffeeReceipe);
+
+        coffeeMachine.make(coffeOrder);
+    }
+
+
 
 }

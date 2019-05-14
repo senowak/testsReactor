@@ -2,7 +2,6 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="48bfa7bf-402c-4236-9568-2a0b444ca641" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/test/java/edu/iis/mto/testreactor/exc1/CoffeeMachineTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/edu/iis/mto/testreactor/exc1/CoffeeMachineTest.java" afterDir="false" />
     </list>
@@ -37,13 +36,13 @@
       </usages-collector>
       <usages-collector id="statistics.file.extensions.edit">
         <counts>
-          <entry key="java" value="599" />
+          <entry key="java" value="648" />
           <entry key="xml" value="1" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.edit">
         <counts>
-          <entry key="JAVA" value="599" />
+          <entry key="JAVA" value="648" />
           <entry key="XML" value="1" />
         </counts>
       </usages-collector>
@@ -56,20 +55,11 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file pinned="false" current-in-tab="false">
+      <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/test/java/edu/iis/mto/testreactor/exc1/CoffeeMachineTest.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="450">
-              <caret line="45" lean-forward="true" selection-start-line="45" selection-end-line="45" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/.gitignore">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="120">
-              <caret line="6" lean-forward="true" selection-start-line="6" selection-end-line="6" />
+            <state relative-caret-position="230">
+              <caret line="43" lean-forward="true" selection-start-line="43" selection-end-line="43" />
             </state>
           </provider>
         </entry>
@@ -106,8 +96,8 @@
     <option name="CHANGED_PATHS">
       <list>
         <option value="$PROJECT_DIR$/pom.xml" />
-        <option value="$PROJECT_DIR$/src/test/java/edu/iis/mto/testreactor/exc1/CoffeeMachineTest.java" />
         <option value="$PROJECT_DIR$/.gitignore" />
+        <option value="$PROJECT_DIR$/src/test/java/edu/iis/mto/testreactor/exc1/CoffeeMachineTest.java" />
       </list>
     </option>
   </component>
@@ -146,11 +136,6 @@
             <path>
               <item name="testsReactor" type="b2602c69:ProjectViewProjectNode" />
               <item name="testsReactor" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="testsReactor" type="b2602c69:ProjectViewProjectNode" />
-              <item name="testsReactor" type="462c0819:PsiDirectoryNode" />
-              <item name=".idea" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="testsReactor" type="b2602c69:ProjectViewProjectNode" />
@@ -206,7 +191,7 @@
     </panes>
   </component>
   <component name="PropertiesComponent">
-    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1557850446543" />
+    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1557850703991" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
   </component>
   <component name="RunDashboard">
@@ -221,7 +206,7 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="JUnit.CoffeeMachineTest.testShouldReturnNoCoffeBeansException">
+  <component name="RunManager" selected="JUnit.CoffeeMachineTest.throwNoCoffeeBeansExceptionWhenThereIsNoCoffeeBeans">
     <configuration name="CoffeeMachineTest.nocoffe" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="testsReactor" />
       <extension name="coverage">
@@ -311,10 +296,10 @@
     </list>
     <recent_temporary>
       <list>
+        <item itemvalue="JUnit.CoffeeMachineTest.throwNoCoffeeBeansExceptionWhenThereIsNoCoffeeBeans" />
         <item itemvalue="JUnit.CoffeeMachineTest.testShouldReturnNoCoffeBeansException" />
         <item itemvalue="JUnit.CoffeeMachineTest.returnCoffeeWithTheSameAmountOfWaterAsInCoffeeReceipt" />
         <item itemvalue="JUnit.CoffeeMachineTest.throwIllegalArgumentExceptionWhenThereIsNoReceiptForOrder" />
-        <item itemvalue="JUnit.CoffeeMachineTest.throwNoCoffeeBeansExceptionWhenThereIsNoCoffeeBeans" />
         <item itemvalue="JUnit.CoffeeMachineTest.nocoffe" />
       </list>
     </recent_temporary>
@@ -462,17 +447,17 @@
         <state relative-caret-position="-940" />
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/test/java/edu/iis/mto/testreactor/exc1/CoffeeMachineTest.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="450">
-          <caret line="45" lean-forward="true" selection-start-line="45" selection-end-line="45" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/.gitignore">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="120">
           <caret line="6" lean-forward="true" selection-start-line="6" selection-end-line="6" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/test/java/edu/iis/mto/testreactor/exc1/CoffeeMachineTest.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="230">
+          <caret line="43" lean-forward="true" selection-start-line="43" selection-end-line="43" />
         </state>
       </provider>
     </entry>
