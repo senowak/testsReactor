@@ -40,7 +40,7 @@ public class CoffeeReceipe {
         private Map<CoffeeSize, Integer> waterAmounts = Collections.emptyMap();
         private int milkAmount;
 
-        private Builder() {}
+        Builder() {}
 
         public Builder withWaterAmounts(Map<CoffeeSize, Integer> waterAmounts) {
             this.waterAmounts = waterAmounts;

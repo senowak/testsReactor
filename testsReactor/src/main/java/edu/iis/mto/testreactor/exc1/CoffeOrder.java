@@ -34,7 +34,7 @@ public class CoffeOrder {
         private CoffeeSize size;
         private CoffeType type;
 
-        private Builder() {}
+        Builder() {}
 
         public Builder withSize(CoffeeSize size) {
             this.size = size;
