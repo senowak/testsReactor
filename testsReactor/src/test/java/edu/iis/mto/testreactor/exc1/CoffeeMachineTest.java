@@ -80,4 +80,13 @@ import java.util.HashMap;
         
     }
 
+    @Test
+    public void methodMakeShouldCallMethodHeatWhenCoffeeIsWithMilk(){
+
+        coffeeMachine.make(coffeOrder);
+
+        verify(milkProvider, times(1)).heat();
+
+    }
+
 }
