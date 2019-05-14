@@ -32,17 +32,18 @@ public class CoffeeMachineTest {
     private Map<CoffeeSize, Integer> waterAmounts = Collections.emptyMap();
 
     @Before
-    public void initialize(){
+    public void initialize() {
         waterAmounts = new HashMap<>();
+
         coffeeMachine = new CoffeeMachine(grinder, milkProvider, coffeeReceipes);
-        waterAmounts.put(CoffeeSize.STANDARD, retutnNotImportantWaterAmount());
+        waterAmounts.put(CoffeeSize.STANDARD, returnNotImportantWaterAmount());
 
         coffeOrder = CoffeOrder.builder().withType(CoffeType.ESPRESSO).withSize(CoffeeSize.STANDARD).build();
         coffeeReceipe = CoffeeReceipe.builder().withMilkAmount(returnNotImportantMilkAmount()).withWaterAmounts(waterAmounts).build();
 
     }
 
-    private Integer retutnNotImportantWaterAmount() {
+    private Integer returnNotImportantWaterAmount() {
         return 10;
     }
 
@@ -70,19 +71,19 @@ public class CoffeeMachineTest {
     }
 
     @Test(expected = IllegalArgumentException.class)
-    public void createCoffeeWithNoRecipeShouldThrowException(){
+    public void createCoffeeWithNoRecipeShouldThrowException() {
         when(grinder.grind(CoffeeSize.STANDARD)).thenReturn(true);
         when(coffeeReceipes.getReceipe(CoffeType.ESPRESSO)).thenReturn(null);
         coffeeMachine.make(coffeOrder);
     }
 
     @Test
-    public void makeCoffeeShouldReturnCoffeeWithProperFields(){
+    public void makeCoffeeShouldReturnCoffeeWithProperFields() {
         Coffee coffee = new Coffee();
         when(grinder.grind(CoffeeSize.STANDARD)).thenReturn(true);
         when(coffeeReceipes.getReceipe(CoffeType.ESPRESSO)).thenReturn(coffeeReceipe);
         coffee.setMilkAmout(returnNotImportantMilkAmount());
-        coffee.setWaterAmount(retutnNotImportantWaterAmount());
+        coffee.setWaterAmount(returnNotImportantWaterAmount());
 
         Coffee otherCoffee = coffeeMachine.make(coffeOrder);
         Assert.assertThat(otherCoffee.getMilkAmout(), is(equalTo(coffee.getMilkAmout())));
@@ -90,12 +91,12 @@ public class CoffeeMachineTest {
     }
 
     @Test
-    public void milkProviderMethodsShouldBeCalledAtLeastOnce(){
+    public void milkProviderMethodsShouldBeCalledAtLeastOnce() {
         when(grinder.grind(CoffeeSize.STANDARD)).thenReturn(true);
         when(coffeeReceipes.getReceipe(CoffeType.ESPRESSO)).thenReturn(coffeeReceipe);
         coffeeMachine.make(coffeOrder);
         verify(milkProvider, atLeastOnce()).pour(returnNotImportantMilkAmount());
         verify(milkProvider, atLeastOnce()).heat();
     }
-    
+
 }
