@@ -83,4 +83,17 @@ public class CoffeeMachineTest {
         Coffee coffee = coffeeMachine.make(coffeOrder);
         Assert.assertThat(coffee.getMilkAmout(), Matchers.equalTo(milkAmount));
     }
+
+    @Test public void makeReturnCoffeeThatWaterAmountEqualsToGivenValue() {
+
+        CoffeOrder.Builder coffeOrderBuilder = new CoffeOrder.Builder();
+        coffeOrderBuilder.withSize(small);
+        coffeOrderBuilder.withType(capuccino);
+
+        coffeOrder = coffeOrderBuilder.build();
+        when(coffeeReceipes.getReceipe(any())).thenReturn(coffeeReceipe);
+
+        Coffee coffee = coffeeMachine.make(coffeOrder);
+        Assert.assertThat(coffee.getWaterAmount(), Matchers.equalTo(waterAmount));
+    }
 }
