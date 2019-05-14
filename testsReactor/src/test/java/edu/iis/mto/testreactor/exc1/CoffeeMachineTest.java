@@ -1,6 +1,7 @@
 package edu.iis.mto.testreactor.exc1;
 
 import static org.hamcrest.Matchers.equalTo;
+import static org.hamcrest.Matchers.is;
 import static org.junit.Assert.assertThat;
 
 import org.junit.Before;
@@ -29,7 +30,7 @@ public class CoffeeMachineTest {
     }
 
     @Test(expected = UnknownCofeeTypeException.class)
-    public void validateShouldThrowUnknownCofeeTypeExceptionTest(){
+    public void validateShouldThrowUnknownCoffeeTypeExceptionTest(){
         CoffeOrder coffeOrder = CoffeOrder.builder().withSize(CoffeeSize.SMALL).withType(CoffeType.ESPRESSO).build();
         when(coffeeReceipes.getReceipe(any(CoffeType.class))).thenReturn(null);
         coffeeMachine = new CoffeeMachine(grinder, milkProvider, coffeeReceipes);
@@ -46,6 +47,25 @@ public class CoffeeMachineTest {
         when(grinder.grind(CoffeeSize.SMALL)).thenReturn(false);
         coffeeMachine = new CoffeeMachine(grinder, milkProvider, coffeeReceipes);
         coffeeMachine.make(coffeOrder);
+    }
+
+
+    @Test
+    public void testIfMadeCoffeeHasProperAmountOfWaterAndMilkTest(){
+        CoffeOrder coffeOrder = CoffeOrder.builder().withSize(CoffeeSize.SMALL).withType(CoffeType.ESPRESSO).build();
+        Map<CoffeeSize, Integer> waterAmount = new HashMap<>();
+        waterAmount.put(CoffeeSize.SMALL, 5);
+        CoffeeReceipe coffeeReceipe = CoffeeReceipe.builder().withWaterAmounts(waterAmount).withMilkAmount(5).build();
+        when(coffeeReceipes.getReceipe(any(CoffeType.class))).thenReturn(coffeeReceipe);
+        when(grinder.grind(CoffeeSize.SMALL)).thenReturn(true);
+        coffeeMachine = new CoffeeMachine(grinder, milkProvider, coffeeReceipes);
+        coffee.setMilkAmout(5);
+        coffee.setWaterAmount(5);
+
+        Coffee coffeeMadeByMachine = coffeeMachine.make(coffeOrder);
+
+        assertThat(coffee.getMilkAmout(), is(equalTo(coffeeMadeByMachine.getMilkAmout())));
+        assertThat(coffee.getWaterAmount(), is(equalTo(coffeeMadeByMachine.getWaterAmount())));
     }
 
     @Test
