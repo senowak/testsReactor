@@ -76,14 +76,32 @@ public class CoffeeMachineTest {
         machine.make(order);
     }
 
+    @Test
+    public void coffeeShouldHaveCorrectAmountOfWaterBasedOnCoffeeSize() {
+        CoffeOrder orderSmall = createOrderAndSetDefaultMockConfiguration(1, CoffeeSize.SMALL, CoffeType.CAPUCCINO);
+        Coffee smallCoffee = machine.make(orderSmall);
+        Assert.assertThat(smallCoffee.getWaterAmount(), is(1));
+
+        CoffeOrder orderStandard = createOrderAndSetDefaultMockConfiguration(1, CoffeeSize.STANDARD, CoffeType.CAPUCCINO);
+        Coffee standardCoffee = machine.make(orderStandard);
+        Assert.assertThat(standardCoffee.getWaterAmount(), is(2));
+
+        CoffeOrder orderDouble = createOrderAndSetDefaultMockConfiguration(1, CoffeeSize.DOUBLE, CoffeType.CAPUCCINO);
+        Coffee doubleCoffee = machine.make(orderDouble);
+        Assert.assertThat(doubleCoffee.getWaterAmount(), is(4));
+    }
+
     private CoffeOrder createOrderAndSetDefaultMockConfiguration(int milkAmount, CoffeeSize coffeeSize, CoffeType coffeType) {
         when(grinder.grind(coffeeSize)).thenReturn(true);
         CoffeeReceipe receipe = CoffeeReceipe.builder()
-                .withMilkAmount(milkAmount)
-                .withWaterAmounts(this.coffeeSizes)
-                .build();
+                                             .withMilkAmount(milkAmount)
+                                             .withWaterAmounts(this.coffeeSizes)
+                                             .build();
         when(receipes.getReceipe(coffeType)).thenReturn(receipe);
 
-        return CoffeOrder.builder().withSize(coffeeSize).withType(coffeType).build();
+        return CoffeOrder.builder()
+                         .withSize(coffeeSize)
+                         .withType(coffeType)
+                         .build();
     }
 }
