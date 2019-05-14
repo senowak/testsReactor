@@ -37,7 +37,7 @@ public class CoffeeMachineTest {
 
         mock(Grinder.class);
         grinder = mock(Grinder.class);
-        when((grinder).grind(CoffeeSize.STANDARD)).thenReturn(true);
+        when((grinder).grind(CoffeeSize.SMALL)).thenReturn(true);
         mock(MilkProvider.class);
         milkProvider = mock(MilkProvider.class);
 
@@ -45,6 +45,7 @@ public class CoffeeMachineTest {
         Map<CoffeeSize, Integer> waterAmounts = new HashMap<CoffeeSize, Integer>();
         waterAmounts.put(CoffeeSize.SMALL,1);
         CoffeeReceipe.Builder builder= new CoffeeReceipe.Builder();
+
         builder.withMilkAmount(2);
         builder.withWaterAmounts(waterAmounts);
         coffeeReceipe= new CoffeeReceipe(builder);
@@ -62,5 +63,12 @@ public class CoffeeMachineTest {
         coffeOrder = builder1.build();
     }
 
+    @Test
+    public void choise_coffee_with_2_milkAmount_and_1_waterAmount_should_return_coffe_with_2_milkAmount_and_1_waterAmount(){
+
+        coffee= coffeeMachine.make(coffeOrder);
+        assertEquals(2,coffee.getMilkAmout());
+        assertEquals(1,coffee.getWaterAmount());
+    }
 
 }
