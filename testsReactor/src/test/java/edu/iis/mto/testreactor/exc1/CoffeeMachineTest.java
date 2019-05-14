@@ -38,9 +38,6 @@ public class CoffeeMachineTest {
         coffeOrder = CoffeOrder.builder().withType(CoffeType.ESPRESSO).withSize(CoffeeSize.STANDARD).build();
         coffeeReceipe = CoffeeReceipe.builder().withMilkAmount(returnNotImportantMilkAmount()).withWaterAmounts(waterAmounts).build();
 
-        when(coffeeReceipes.getReceipe(CoffeType.ESPRESSO)).thenReturn(coffeeReceipe);
-
-
     }
 
     private int returnNotImportantMilkAmount() {
@@ -61,10 +58,17 @@ public class CoffeeMachineTest {
     @Test
     public void grindCoffeeGrinderGrindShouldBeCalledAtLeastOnce() {
         when(grinder.grind(CoffeeSize.STANDARD)).thenReturn(true);
+        when(coffeeReceipes.getReceipe(CoffeType.ESPRESSO)).thenReturn(coffeeReceipe);
         coffeeMachine.make(coffeOrder);
         verify(grinder, atLeastOnce()).grind(CoffeeSize.STANDARD);
     }
 
+    @Test(expected = IllegalArgumentException.class)
+    public void createCoffeeWithNoRecipeShouldThrowException(){
+        when(grinder.grind(CoffeeSize.STANDARD)).thenReturn(true);
+        when(coffeeReceipes.getReceipe(CoffeType.ESPRESSO)).thenReturn(null);
+        coffeeMachine.make(coffeOrder);
+    }
 
 
 }
