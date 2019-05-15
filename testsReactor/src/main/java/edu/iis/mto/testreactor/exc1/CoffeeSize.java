@@ -4,5 +4,4 @@ public enum CoffeeSize {
     SMALL,
     STANDARD,
     DOUBLE
-
 }
