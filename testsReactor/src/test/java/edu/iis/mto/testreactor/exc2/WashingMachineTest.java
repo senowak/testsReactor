@@ -28,7 +28,7 @@ public class WashingMachineTest {
         washingMachine = new WashingMachine(dirtDetector, engine, waterPump);
 
         laundryBatch = laundryBatch.builder().withType(Material.COTTON).withWeightKg(1.0).build();
-        programConfiguration = programConfiguration.builder().withProgram(Program.LONG).withSpin(true).build();
+        programConfiguration = programConfiguration.builder().withProgram(Program.AUTODETECT).withSpin(true).build();
     }
 
 
@@ -48,6 +48,17 @@ public class WashingMachineTest {
                 .build();
 
         assertEquals(laundryStatus.toString(), washingMachine.start(localLaundryBatch, localProgramConfiguration).toString());
+    }
+
+    @Test
+    public void autodetectExpectLongForDirtyGreaterThanAverage(){
+        LaundryBatch localLaundryBatch = laundryBatch.builder().withType(Material.COTTON).withWeightKg(2.0).build();
+        ProgramConfiguration localProgramConfiguration = programConfiguration.builder().withProgram(Program.AUTODETECT).withSpin(true).build();
+
+        when(dirtDetector.detectDirtDegree(localLaundryBatch)).thenReturn(new Percentage(50.0));
+
+        LaundryStatus laundryStatus = washingMachine.start(localLaundryBatch, localProgramConfiguration);
+        assertEquals(Program.LONG, laundryStatus.getRunnedProgram());
     }
 
 }
