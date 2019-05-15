@@ -2,8 +2,7 @@ package edu.iis.mto.testreactor.exc2;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertThat;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.*;
 
 import org.hamcrest.Matchers;
 
@@ -28,7 +27,7 @@ public class WashingMachineTest {
         washingMachine = new WashingMachine(dirtDetector, engine, waterPump);
 
         laundryBatch = laundryBatch.builder().withType(Material.COTTON).withWeightKg(1.0).build();
-        programConfiguration = programConfiguration.builder().withProgram(Program.AUTODETECT).withSpin(true).build();
+        programConfiguration = programConfiguration.builder().withProgram(Program.SHORT).withSpin(true).build();
     }
 
 
@@ -70,6 +69,16 @@ public class WashingMachineTest {
 
         LaundryStatus laundryStatus = washingMachine.start(localLaundryBatch, localProgramConfiguration);
         assertEquals(Program.MEDIUM, laundryStatus.getRunnedProgram());
+    }
+
+    @Test
+    public void checkIfWaterPompAndEngineMethodsCallsOnlyOnce(){
+        washingMachine.start(laundryBatch, programConfiguration);
+
+        verify(engine, times(1)).runWashing(anyInt());
+        verify(engine, times(1)).spin();
+        verify(waterPump, times(1)).pour(anyDouble());
+        verify(waterPump, times(1)).release();
     }
 
 }
