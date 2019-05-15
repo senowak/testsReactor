@@ -1,11 +1,33 @@
 package edu.iis.mto.testreactor.exc2;
 
 import static org.junit.Assert.assertThat;
+import static org.mockito.Mockito.mock;
 
 import org.hamcrest.Matchers;
-import org.junit.Test;
+
+import org.junit.Before;
+import org.junit.jupiter.api.Test;
+import org.mockito.Mockito;
 
 public class WashingMachineTest {
+
+    DirtDetector dirtDetector = mock(DirtDetector.class);
+    Engine engine = mock(Engine.class);
+    WaterPump waterPump = mock(WaterPump.class);
+
+    LaundryBatch laundryBatch;
+    ProgramConfiguration programConfiguration;
+
+    WashingMachine washingMachine;
+
+    @Before
+    public void init(){
+        washingMachine = new WashingMachine(dirtDetector, engine, waterPump);
+
+        laundryBatch = laundryBatch.builder().withType(Material.COTTON).withWeightKg(1.0).build();
+        programConfiguration = programConfiguration.builder().withProgram(Program.LONG).withSpin(true).build();
+    }
+
 
     @Test
     public void itCompiles() {
