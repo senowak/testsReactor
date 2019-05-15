@@ -81,4 +81,13 @@ public class WashingMachineTest {
         verify(waterPump, times(1)).release();
     }
 
+    @Test
+    public void checkIfThereIsNoSpinForDelicateMaterial(){
+        LaundryBatch localLaundryBatch = laundryBatch.builder().withType(Material.DELICATE).withWeightKg(2.0).build();
+
+        washingMachine.start(localLaundryBatch, programConfiguration);
+
+        verify(engine, times(0)).spin();
+    }
+
 }
