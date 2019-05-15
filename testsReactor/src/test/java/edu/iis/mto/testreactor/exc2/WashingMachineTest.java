@@ -102,5 +102,12 @@ public class WashingMachineTest {
         verify(waterPump, times(1)).release();
     }
 
+    @Test
+    public void checkIfSuccess(){
+        LaundryStatus laundryStatus = LaundryStatus.builder().withResult(Result.SUCCESS).withRunnedProgram(Program.SHORT).build();
+
+        assertEquals(laundryStatus.toString(), washingMachine.start(laundryBatch, programConfiguration).toString());
+    }
+
 
 }
