@@ -14,11 +14,11 @@ public class Percentage {
     }
 
     public boolean isGreaterThan(Percentage other) {
-        return other.value > this.value;
+        return Objects.requireNonNull(other, "other == null").value > this.value;
     }
 
     public boolean lowerThan(Percentage other) {
-        return other.value > this.value;
+        return Objects.requireNonNull(other, "other == null").value > this.value;
     }
 
     @Override
