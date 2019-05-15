@@ -90,4 +90,17 @@ public class WashingMachineTest {
         verify(engine, times(0)).spin();
     }
 
+    @Test
+    public void checkIfWaterPompAndEngineMethodsCallsOnlyOnceWithOutSpin(){
+        ProgramConfiguration localProgramConfiguration = programConfiguration.builder().withProgram(Program.SHORT).withSpin(false).build();
+
+        washingMachine.start(laundryBatch, localProgramConfiguration);
+
+        verify(engine, times(1)).runWashing(anyInt());
+        verify(engine, times(0)).spin();
+        verify(waterPump, times(1)).pour(anyDouble());
+        verify(waterPump, times(1)).release();
+    }
+
+
 }
