@@ -61,4 +61,15 @@ public class WashingMachineTest {
         assertEquals(Program.LONG, laundryStatus.getRunnedProgram());
     }
 
+    @Test
+    public void autodetectExpectMediumForDirtyGreaterThanAverage(){
+        LaundryBatch localLaundryBatch = laundryBatch.builder().withType(Material.COTTON).withWeightKg(2.0).build();
+        ProgramConfiguration localProgramConfiguration = programConfiguration.builder().withProgram(Program.AUTODETECT).withSpin(true).build();
+
+        when(dirtDetector.detectDirtDegree(localLaundryBatch)).thenReturn(new Percentage(40.0));
+
+        LaundryStatus laundryStatus = washingMachine.start(localLaundryBatch, localProgramConfiguration);
+        assertEquals(Program.MEDIUM, laundryStatus.getRunnedProgram());
+    }
+
 }
